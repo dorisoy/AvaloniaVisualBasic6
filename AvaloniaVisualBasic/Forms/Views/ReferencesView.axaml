@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             mc:Ignorable="d" Width="444" d:DesignHeight="333"
+             x:DataType="viewModels:ReferencesViewModel"
+             x:Class="AvaloniaVisualBasic.Forms.Views.ReferencesView">
+    <UserControl.DataTemplates>
+        <DataTemplate x:DataType="viewModels:ReferencesReferenceViewModel">
+            <CheckBox IsChecked="{CompiledBinding IsSelected}"
+                      Theme="{StaticResource FlatCheckBox}"
+                      BorderThickness="1"
+                      Content="{CompiledBinding Name}" />
+        </DataTemplate>
+    </UserControl.DataTemplates>
+    <UserControl.Styles>
+        <Style Selector="ListBoxItem:selected CheckBox">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static commonControls:SystemColors.HighlightTextBrushKey}}" />
+        </Style>
+    </UserControl.Styles>
+    <Grid Margin="7"
+          RowDefinitions="*,10,Auto"
+          ColumnDefinitions="*,8,38,8,75">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Margin="0,0,0,10">Available References:</TextBlock>
+            <ListBox
+                ItemsSource="{CompiledBinding References}"
+                SelectedItem="{CompiledBinding SelectedReference}">
+            </ListBox>
+        </DockPanel>
+        <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center" Spacing="12">
+            <Button Padding="0" Width="21" Height="23">
+                <Image Source="/Icons/up.gif" Width="9" Height="9" />
+            </Button>
+            <TextBlock>Priority</TextBlock>
+            <Button Padding="0" Width="21" Height="23">
+                <Image Source="/Icons/bottom.gif" Width="9" Height="9" />
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Column="4" Spacing="4">
+            <Button Command="{CompiledBinding OkCommand}">OK</Button>
+            <Button Command="{CompiledBinding CancelCommand}">Cancel</Button>
+            <Button Margin="0,9,0,0" IsEnabled="False">Browse</Button>
+            <Button Margin="0,37,0,0" IsEnabled="False">Help</Button>
+        </StackPanel>
+
+        <HeaderedContentControl Grid.Row="2" Grid.ColumnSpan="5" Header="{CompiledBinding Name}" DataContext="{CompiledBinding  SelectedReference}">
+            <StackPanel Margin="10" Orientation="Vertical" Spacing="5">
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,20,*">
+                    <TextBlock Grid.Row="0" Grid.Column="0">Location:</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{CompiledBinding Location}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0">Language:</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{CompiledBinding Language}" />
+                </Grid>
+            </StackPanel>
+        </HeaderedContentControl>
+    </Grid>
+</UserControl>

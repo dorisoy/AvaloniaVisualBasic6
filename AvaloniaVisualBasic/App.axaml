@@ -1,0 +1,32 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avaloniaVisualBasic="clr-namespace:AvaloniaVisualBasic"
+             x:Class="AvaloniaVisualBasic.App"
+             RequestedThemeVariant="{x:Static ClassicTheme.Standard}">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="Controls/MDI/MDIWindow.axaml" />
+                <ResourceInclude Source="Controls/MDI/MDIHost.axaml" />
+                <ResourceInclude Source="Controls/ResizeAdorner.axaml" />
+                <ResourceInclude Source="Controls/Properties/PropertyBox.axaml" />
+                <ResourceInclude Source="avares://AvaloniaVisualBasic.Runtime/BuiltinControls/VBTimer.axaml" />
+                <ResourceInclude Source="avares://AvaloniaVisualBasic.Runtime/BuiltinControls/VBLabel.axaml" />
+                <ResourceInclude Source="avares://AvaloniaVisualBasic.Runtime/BuiltinControls/Resources.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        <ClassicTheme />
+        <StyleInclude Source="avares://Classic.Avalonia.Theme.Dock/Classic.axaml" />
+        <StyleInclude Source="avares://Classic.Avalonia.Theme.ColorPicker/Classic.axaml" />
+        <StyleInclude Source="avares://Classic.Avalonia.Theme.DataGrid/Classic.axaml" />
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Simple/AvaloniaEdit.xaml" />
+    </Application.Styles>
+
+    <Application.DataTemplates>
+        <avaloniaVisualBasic:ViewLocator />
+    </Application.DataTemplates>
+</Application>

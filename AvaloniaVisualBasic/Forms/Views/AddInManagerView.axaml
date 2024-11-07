@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:AddInManagerViewModel"
+             Width="477"
+             Height="345"
+             x:Class="AvaloniaVisualBasic.Forms.Views.AddInManagerView">
+    <Design.DataContext>
+        <viewModels:AddInManagerViewModel />
+    </Design.DataContext>
+    <Border Margin="11,11,10,12">
+        <Grid RowDefinitions="*,10,100">
+
+            <Grid Grid.Row="0" ColumnDefinitions="*,18,75">
+
+                <DataGrid
+                          HorizontalScrollBarVisibility="Visible"
+                          VerticalScrollBarVisibility="Visible"
+                          ItemsSource="{CompiledBinding AddIns}"
+                          SelectedItem="{CompiledBinding SelectedAddIn, Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Available Add-Ins" Binding="{CompiledBinding Name}" />
+                        <DataGridTextColumn Header="Load Behavior" Binding="{CompiledBinding LoadBehavior}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DockPanel Grid.Column="2" LastChildFill="False">
+                    <Button Command="{CompiledBinding Close}" DockPanel.Dock="Top" Margin="0,0,0,8">OK</Button>
+                    <Button Command="{CompiledBinding Close}" DockPanel.Dock="Top">Cancel</Button>
+                    <Button DockPanel.Dock="Bottom" IsEnabled="False">Help</Button>
+                </DockPanel>
+
+            </Grid>
+
+            <Grid Row="2" ColumnDefinitions="*,7,165" DataContext="{CompiledBinding SelectedAddIn}">
+                <DockPanel Grid.Column="0">
+                    <AccessText Text="_Description" DockPanel.Dock="Top" />
+                    <ClassicBorderDecorator BorderStyle="Sunken" BorderThickness="2">
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+                            <TextBlock TextWrapping="Wrap" Text="{CompiledBinding Description}" />
+                        </ScrollViewer>
+                    </ClassicBorderDecorator>
+                </DockPanel>
+
+                <HeaderedContentControl Header="Load Behavior" Grid.Column="2">
+                    <UniformGrid Columns="1" Margin="7,3">
+                        <CheckBox IsChecked="{CompiledBinding Startup}">_Loaded/Unloaded</CheckBox>
+                        <CheckBox IsChecked="{CompiledBinding Loaded}">Load on _Startup</CheckBox>
+                        <CheckBox IsChecked="{CompiledBinding Commandline}">_Command Line</CheckBox>
+                    </UniformGrid>
+                </HeaderedContentControl>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

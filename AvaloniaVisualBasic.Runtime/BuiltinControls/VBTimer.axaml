@@ -1,0 +1,27 @@
+
+
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+                    xmlns:visualBasicControls="clr-namespace:AvaloniaVisualBasic.Runtime.BuiltinControls">
+    <ControlTheme x:Key="{x:Type visualBasicControls:VBTimer}"
+                  TargetType="visualBasicControls:VBTimer">
+        <Setter Property="MinWidth" Value="28" />
+        <Setter Property="MinHeight" Value="28" />
+        <Setter Property="MaxWidth" Value="28" />
+        <Setter Property="MaxHeight" Value="28" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ClassicBorderDecorator
+                    BorderThickness="2"
+                    BorderStyle="Etched"
+                    Background="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                    BorderDarkBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                    BorderLightLightBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlDarkBrushKey}}"
+                    >
+                    <Image Source="/Icons/timer2.gif" Width="24" Height="24" />
+                </ClassicBorderDecorator>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

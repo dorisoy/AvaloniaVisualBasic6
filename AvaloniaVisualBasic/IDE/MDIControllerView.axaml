@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:managers="clr-namespace:AvaloniaVisualBasic.Managers"
+             xmlns:controls="clr-namespace:AvaloniaVisualBasic.Controls"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             xmlns:ide="clr-namespace:AvaloniaVisualBasic.IDE"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="ide:MDIControllerViewModel"
+             Name="RootView"
+             x:Class="AvaloniaVisualBasic.IDE.MDIControllerView">
+    <ClassicBorderDecorator BorderStyle="Sunken" BorderThickness="2">
+
+        <controls:MDIHost
+            x:Name="MDIHost"
+            ActiveWindowChanged="ActiveWindowChanged"
+            ItemsSource="{CompiledBinding MdiWindowManager.Windows}">
+
+            <controls:MDIHost.ItemContainerTheme>
+                <ControlTheme TargetType="controls:MDIWindow" BasedOn="{StaticResource {x:Type controls:MDIWindow}}" x:DataType="viewModels:BaseEditorWindowViewModel">
+                    <Setter Property="Title" Value="{CompiledBinding Title}" />
+                    <Setter Property="Icon" Value="{CompiledBinding Icon}" />
+                    <Setter Property="CloseCommand" Value="{CompiledBinding #RootView.((ide:MDIControllerViewModel)DataContext).CloseWindowCommand}" />
+                    <Setter Property="CloseCommandParameter" Value="{CompiledBinding .}" />
+                </ControlTheme>
+            </controls:MDIHost.ItemContainerTheme>
+
+        </controls:MDIHost>
+
+    </ClassicBorderDecorator>
+</UserControl>

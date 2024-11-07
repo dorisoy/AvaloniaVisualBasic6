@@ -1,0 +1,245 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:AvaloniaVisualBasic.Controls"
+                    xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+                    xmlns:builtinTypes="clr-namespace:AvaloniaVisualBasic.Runtime.BuiltinTypes;assembly=AvaloniaVisualBasic.Runtime"
+                    xmlns:converters="clr-namespace:AvaloniaVisualBasic.Converters"
+                    x:ClassModifier="internal">
+    <Design.PreviewWith>
+        <StackPanel Orientation="Vertical" Height="200" Width="300">
+            <controls:PropertyFontBox Font="" FontName="" />
+            <controls:PropertyEnumBox PropertyType="{x:Type builtinTypes:BorderStyles}" />
+            <controls:PropertyColorBox
+                VerticalAlignment="Top"
+                Color="{x:Static builtinTypes:VBColor.Black}" />
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="ButtonAltRaised" BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+        <Setter Property="BorderThickness" Value="2" />
+        <Style Selector="^ /template/ ClassicBorderDecorator#ContentContainer">
+            <Setter Property="BorderStyle" Value="AltRaised" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme TargetType="controls:PropertyBox" x:Key="{x:Type controls:PropertyBox}">
+        <Setter Property="GenericTemplate">
+            <DataTemplate>
+                <TextBox BorderThickness="0"
+                         Padding="2,0"
+                         Text="{Binding $parent[controls:PropertyBox].Object, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="ColorTemplate">
+            <DataTemplate>
+                <controls:PropertyColorBox Color="{Binding $parent[controls:PropertyBox].Object, Mode=TwoWay}" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="EnumTemplate">
+            <DataTemplate>
+                <controls:PropertyEnumBox SelectedValue="{Binding $parent[controls:PropertyBox].Object, Mode=TwoWay}"
+                                          PropertyType="{Binding $parent[controls:PropertyBox].PropertyClass.PropertyType}" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="FontTemplate">
+            <DataTemplate>
+                <controls:PropertyFontBox Font="{Binding $parent[controls:PropertyBox].Object, Mode=TwoWay}" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="StringListTemplate">
+            <DataTemplate>
+                <controls:PropertyStringListBox Elements="{Binding $parent[controls:PropertyBox].Object, Mode=TwoWay}" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel Name="PART_Panel" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type controls:PropertyFontBox}" TargetType="controls:PropertyFontBox">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel Background="{DynamicResource {x:Static commonControls:SystemColors.WindowBrushKey}}">
+                    <Button Name="PART_OpenFontWindowButton"
+                            Width="{DynamicResource {x:Static commonControls:SystemParameters.VerticalScrollBarWidthKey}}"
+                            DockPanel.Dock="Right"
+                            Theme="{StaticResource ButtonAltRaised}"
+                            Padding="0">
+                        <Path Data="M 0 0 L 2 0 L 2 2 L 0 2 Z M 3 0 L 5 0 L 5 2 L 3 2 Z M 6 0 L 8 0 L 8 2 L 6 2 Z" Fill="{DynamicResource {x:Static commonControls:SystemColors.WindowTextBrushKey}}" />
+                    </Button>
+                    <TextBlock Foreground="{DynamicResource {x:Static commonControls:SystemColors.WindowTextBrushKey}}" VerticalAlignment="Center" Cursor="Ibeam" HorizontalAlignment="Stretch" Text="{TemplateBinding FontName}" />
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type controls:PropertyEnumBox}" TargetType="controls:PropertyEnumBox">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ComboBox
+                    Name="PART_ComboBox"
+                    Padding="1,0"
+                    ItemsSource="{TemplateBinding Options}"
+                    SelectedItem="{TemplateBinding SelectedViewModel, Mode=TwoWay}"
+                    BorderThickness="0">
+                </ComboBox>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type controls:PropertyStringListBox}" TargetType="controls:PropertyStringListBox">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel Background="{DynamicResource {x:Static commonControls:SystemColors.WindowBrushKey}}">
+                    <Button DockPanel.Dock="Right"
+                            Theme="{StaticResource ButtonAltRaised}"
+                            Width="{DynamicResource {x:Static commonControls:SystemParameters.VerticalScrollBarWidthKey}}"
+                            Padding="0">
+                        <Path Data="M 0 0 L 3.5 4 L 7 0 Z" Fill="{DynamicResource {x:Static commonControls:SystemColors.WindowTextBrushKey}}" />
+                        <Button.Flyout>
+                            <Flyout
+                                Placement="BottomEdgeAlignedRight"
+                                FlyoutPresenterTheme="{DynamicResource FlatFlyoutPresenter}">
+                                <TextBox
+                                    AcceptsReturn="True"
+                                    BorderThickness="0"
+                                    MinWidth="150"
+                                    MinHeight="50"
+                                    MaxHeight="250"
+                                    MaxWidth="250"
+                                    Text="{CompiledBinding ElementsAsText, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=LostFocus}" />
+                            </Flyout>
+                        </Button.Flyout>
+                        <Button.Styles>
+                            <Style Selector="FlyoutPresenter">
+                                <Setter Property="Padding" Value="0" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <TextBlock Cursor="IBeam" Text="(List)" />
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme TargetType="controls:PropertyColorBox" x:Key="{x:Type controls:PropertyColorBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel Background="{DynamicResource {x:Static commonControls:SystemColors.WindowBrushKey}}">
+                    <Border BorderThickness="1"
+                            Background="{TemplateBinding Color, Converter={x:Static converters:VBColorConverter.Instance}}"
+                            BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.WindowFrameBrushKey}}"
+                            Width="12"
+                            Margin="1"
+                            VerticalAlignment="Stretch" />
+                    <Button DockPanel.Dock="Right"
+                            Theme="{StaticResource ButtonAltRaised}"
+                            Width="{DynamicResource {x:Static commonControls:SystemParameters.VerticalScrollBarWidthKey}}"
+                            Padding="0">
+                        <Path Data="M 0 0 L 3.5 4 L 7 0 Z" Fill="{DynamicResource {x:Static commonControls:SystemColors.WindowTextBrushKey}}" />
+
+                        <Button.Flyout>
+                            <Flyout
+                                Placement="BottomEdgeAlignedRight"
+                                FlyoutPresenterTheme="{DynamicResource FlatFlyoutPresenter}">
+                                <TabControl Width="151" DockPanel.Dock="Bottom">
+                                    <TabItem Header="Palette">
+                                        <ListBox
+                                            Name="PART_PaletteListBox"
+                                            BorderThickness="1"
+                                            Padding="1"
+                                            Width="142"
+                                            Height="142"
+                                            BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.WindowFrameBrushKey}}"
+                                            Background="{DynamicResource {x:Static commonControls:SystemColors.AppWorkspaceBrushKey}}"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                            SelectedItem="{CompiledBinding $parent[controls:PropertyColorBox].SelectedPaletteColor, Mode=TwoWay}"
+                                            ItemsSource="{CompiledBinding $parent[controls:PropertyColorBox].BuiltinPalette}">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate x:DataType="builtinTypes:VBColor">
+                                                    <Border
+                                                        Width="16"
+                                                        Height="16"
+                                                        BorderThickness="1"
+                                                        BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.WindowFrameBrushKey}}"
+                                                        Background="{Binding ., Converter={x:Static converters:VBColorConverter.Instance}}" />
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                            <ListBox.ItemContainerTheme>
+                                                <ControlTheme TargetType="ListBoxItem">
+                                                    <Setter Property="ClipToBounds" Value="False" />
+                                                    <Setter Property="Margin" Value="0,0,1,1" />
+                                                    <Setter Property="Template">
+                                                        <ControlTemplate>
+                                                            <Border Name="PART_Frame">
+                                                                <ContentPresenter Name="PART_ContentPresenter"
+                                                                                  Content="{TemplateBinding Content}"
+                                                                                  ContentTemplate="{TemplateBinding ContentTemplate}" />
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter>
+                                                    <Style Selector="^:selected">
+                                                        <Setter Property="ZIndex" Value="9999" />
+                                                        <Style Selector="^  /template/ Border#PART_Frame">
+                                                            <Setter Property="Background" Value="White"/>
+                                                            <Setter Property="Padding" Value="1"/>
+                                                            <Setter Property="BorderThickness" Value="1"/>
+                                                            <Setter Property="BorderBrush" Value="Black"/>
+                                                            <Setter Property="Margin" Value="-2"/>
+                                                        </Style>
+                                                    </Style>
+                                                </ControlTheme>
+                                            </ListBox.ItemContainerTheme>
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel />
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                        </ListBox>
+                                    </TabItem>
+                                    <TabItem Header="System">
+                                        <ListBox
+                                            Name="PART_SystemColorsListBox"
+                                            Width="142"
+                                            Height="142"
+                                            Theme="{DynamicResource FlatListBox}"
+                                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                            SelectedItem="{CompiledBinding $parent[controls:PropertyColorBox].SelectedSystemColor, Mode=TwoWay}"
+                                            ItemsSource="{Binding $parent[controls:PropertyColorBox].SystemColors}">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate x:DataType="builtinTypes:VBColor">
+                                                    <DockPanel>
+                                                        <Border
+                                                            Width="11"
+                                                            Height="12"
+                                                            Margin="1,1,1,1"
+                                                            BorderThickness="1"
+                                                            BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.WindowFrameBrushKey}}"
+                                                            Background="{Binding ., Converter={x:Static converters:VBColorConverter.Instance}}" />
+
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            Text="{Binding ., Converter={x:Static converters:VBColorDescriptionConverter.Instance}}" />
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </TabItem>
+                                </TabControl>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                    <TextBox
+                        BorderThickness="0"
+                        Margin="4,0,0,0"
+                        Padding="0"
+                        Text="{CompiledBinding Color, RelativeSource={RelativeSource Mode=TemplatedParent}, UpdateSourceTrigger=LostFocus, Mode=TwoWay, Converter={x:Static converters:VBColorConverter.Instance}}" />
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

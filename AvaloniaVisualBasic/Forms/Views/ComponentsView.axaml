@@ -1,0 +1,107 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             mc:Ignorable="d" MinWidth="448" MinHeight="378"
+             x:DataType="viewModels:ComponentsViewModel"
+             x:Class="AvaloniaVisualBasic.Forms.Views.ComponentsView">
+    <UserControl.DataTemplates>
+        <DataTemplate x:DataType="viewModels:ComponentsComponentViewModel">
+            <CheckBox IsChecked="{CompiledBinding IsSelected}"
+                      Theme="{StaticResource FlatCheckBox}"
+                      BorderThickness="1"
+                      Content="{CompiledBinding Name}" />
+        </DataTemplate>
+    </UserControl.DataTemplates>
+    <UserControl.Styles>
+        <Style Selector="ListBoxItem:selected CheckBox">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static commonControls:SystemColors.HighlightTextBrushKey}}" />
+        </Style>
+    </UserControl.Styles>
+    <Grid Margin="7" RowDefinitions="*,7,Auto">
+
+        <TabControl>
+            <TabItem Header="Controls">
+                <Grid Margin="10" RowDefinitions="*,10,Auto" ColumnDefinitions="*,10,138">
+                    <ListBox
+                        ItemsSource="{CompiledBinding Controls}"
+                        SelectedItem="{CompiledBinding SelectedControl}">
+                    </ListBox>
+                    <DockPanel Grid.Column="2" LastChildFill="False">
+                        <Image Source="/Icons/controls.gif" Stretch="None" DockPanel.Dock="Top" HorizontalAlignment="Left" />
+
+                        <CheckBox DockPanel.Dock="Bottom"
+                                  IsChecked="{CompiledBinding ShowOnlySelectedControls}">Selected Items Only</CheckBox>
+                        <Button DockPanel.Dock="Bottom" Margin="0,0,0,10" IsEnabled="False">Browse</Button>
+                    </DockPanel>
+
+                    <HeaderedContentControl Grid.Row="2" Grid.ColumnSpan="3" Header="{CompiledBinding Name}" DataContext="{CompiledBinding  SelectedControl}">
+                        <DockPanel Margin="10">
+                            <TextBlock Margin="0,0,20,0">Location:</TextBlock>
+                            <TextBlock Text="{CompiledBinding Location}" />
+                        </DockPanel>
+                    </HeaderedContentControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Designers">
+                <Grid Margin="10" RowDefinitions="*,10,Auto" ColumnDefinitions="*,10,138">
+                    <ListBox
+                        ItemsSource="{CompiledBinding Designers}"
+                        SelectedItem="{CompiledBinding SelectedDesigner}">
+
+                    </ListBox>
+                    <DockPanel Grid.Column="2" LastChildFill="False">
+                        <Image Source="/Icons/designers.gif" Stretch="None" DockPanel.Dock="Top" HorizontalAlignment="Left" />
+
+                        <CheckBox DockPanel.Dock="Bottom"
+                                  IsChecked="{CompiledBinding ShowOnlySelectedDesigners}">Selected Items Only</CheckBox>
+                    </DockPanel>
+
+                    <HeaderedContentControl Grid.Row="2" Grid.ColumnSpan="3" Header="{CompiledBinding Name}" DataContext="{CompiledBinding  SelectedDesigner}">
+                        <DockPanel Margin="10">
+                            <TextBlock Margin="0,0,20,0">Location:</TextBlock>
+                            <TextBlock Text="{CompiledBinding Location}" />
+                        </DockPanel>
+                    </HeaderedContentControl>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Insertable Objects">
+
+                <Grid Margin="10" RowDefinitions="*,10,Auto" ColumnDefinitions="*,10,138">
+                    <ListBox
+                        ItemsSource="{CompiledBinding InsertableObjects}"
+                        SelectedItem="{CompiledBinding SelectedInsertableObject}">
+
+                    </ListBox>
+                    <DockPanel Grid.Column="2" LastChildFill="False">
+                        <Image Source="/Icons/insertableobjects.gif" Stretch="None" DockPanel.Dock="Top" HorizontalAlignment="Left" />
+
+                        <CheckBox DockPanel.Dock="Bottom"
+                                  IsChecked="{CompiledBinding ShowOnlySelectedInsertableObjects}">Selected Items Only</CheckBox>
+                    </DockPanel>
+
+                    <HeaderedContentControl Grid.Row="2" Grid.ColumnSpan="3" Header="{CompiledBinding Name}" DataContext="{CompiledBinding  SelectedInsertableObject}">
+                        <DockPanel Margin="10">
+                            <TextBlock Margin="0,0,20,0">Location:</TextBlock>
+                            <TextBlock Text="{CompiledBinding Location}" />
+                        </DockPanel>
+                    </HeaderedContentControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Orientation="Horizontal" Spacing="7" Grid.Row="2" HorizontalAlignment="Right">
+            <Button Command="{CompiledBinding CancelCommand}">C_lose</Button>
+            <Button Command="{CompiledBinding CancelCommand}">_Cancel</Button>
+            <Button Command="{CompiledBinding ApplyCommand}">_Apply</Button>
+            <StackPanel.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Width" Value="75"/>
+                </Style>
+            </StackPanel.Styles>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

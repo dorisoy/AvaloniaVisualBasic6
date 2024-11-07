@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             x:DataType="viewModels:NewProjectViewModel"
+             mc:Ignorable="d" d:DesignWidth="440" d:DesignHeight="401"
+             Width="440"
+             Height="400"
+             x:Class="AvaloniaVisualBasic.Forms.Views.NewProjectView">
+
+    <Design.PreviewWith>
+        <viewModels:NewProjectViewModel>
+            <x:Arguments>
+                <x:Null />
+            </x:Arguments>
+        </viewModels:NewProjectViewModel>
+    </Design.PreviewWith>
+
+    <Grid RowDefinitions="64,*,Auto" Margin="6,3">
+
+        <ClassicBorderDecorator BorderStyle="ThinPressed" BorderThickness="1">
+            <Image Source="/Icons/avalonia_visualbasic.gif" Stretch="None" Margin="1" />
+        </ClassicBorderDecorator>
+
+        <TabControl Grid.Row="1" Margin="0,3,0,3" Padding="8,5,8,9">
+
+            <TabItem Header="New">
+
+                <Grid RowDefinitions="*,9,Auto">
+
+                    <commonControls:ListView ItemsSource="{CompiledBinding Templates}"
+                                             SelectedItem="{CompiledBinding SelectedTemplate}"
+                                             DoubleTapped="TemplateDoubleTap"
+                                             View="Icon">
+
+                        <commonControls:ListView.Styles>
+                            <Style Selector="commonControls|ListViewItem" x:DataType="viewModels:ProjectTemplateViewModel">
+                                <Setter Property="LargeIcon" Value="{CompiledBinding Icon}" />
+                                <Setter Property="Text" Value="{CompiledBinding Name}" />
+                            </Style>
+                        </commonControls:ListView.Styles>
+                    </commonControls:ListView>
+
+                    <StackPanel Orientation="Vertical" Spacing="6" Grid.Row="2" HorizontalAlignment="Right" MinWidth="75" Margin="0,0,5,0">
+                        <Button Command="{CompiledBinding Ok}">_Open</Button>
+                        <Button Command="{CompiledBinding Cancel}">Cancel</Button>
+                        <Button IsEnabled="False">_Help</Button>
+                    </StackPanel>
+
+                </Grid>
+
+            </TabItem>
+
+
+            <TabItem Header="Existing">
+
+            </TabItem>
+
+
+            <TabItem Header="Recent">
+
+            </TabItem>
+
+        </TabControl>
+
+        <CheckBox Grid.Row="2" Margin="0,5,0,13">Don't show this dialog in the f_uture</CheckBox>
+
+    </Grid>
+</UserControl>

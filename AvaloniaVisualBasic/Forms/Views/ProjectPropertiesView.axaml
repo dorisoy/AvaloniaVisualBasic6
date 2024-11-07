@@ -1,0 +1,90 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="412" d:DesignHeight="353"
+             x:DataType="viewModels:ProjectPropertiesViewModel"
+             x:Class="AvaloniaVisualBasic.Forms.Views.ProjectPropertiesView">
+    <Grid Margin="6" RowDefinitions="*,6,Auto">
+        <TabControl>
+
+            <TabItem Header="General">
+                <StackPanel Orientation="Vertical" Margin="12,7" Spacing="5">
+
+                    <Grid ColumnDefinitions="188,15,160" RowDefinitions="Auto,3,Auto">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Project Type:" />
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Startup Object:" />
+                        <ComboBox Grid.Row="2" Grid.Column="0"
+                                    SelectedItem="{CompiledBinding SelectedProjectType}"
+                                    ItemsSource="{CompiledBinding ProjectTypes}" />
+                        <ComboBox Grid.Row="2" Grid.Column="2"
+                                    SelectedItem="{CompiledBinding SelectedStartupObject}"
+                                    ItemsSource="{CompiledBinding StartupObjects}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="250,28,*" RowDefinitions="Auto,3,Auto,Auto,3,Auto">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Project Name:" />
+                        <TextBox Grid.Row="2" Grid.Column="0" Text="{CompiledBinding ProjectName}" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Help File Name:" VerticalAlignment="Bottom" />
+                        <TextBox Grid.Row="5" Grid.Column="0" IsEnabled="False" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="2" Text="Project Help Context ID:" TextWrapping="WrapWithOverflow" />
+                        <TextBox Grid.Row="5" Grid.Column="2" Text="0" IsEnabled="False" />
+                    </Grid>
+
+                    <Grid RowDefinitions="Auto,3,Auto,Auto,3,Auto">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Project Description:" />
+                        <TextBox Grid.Row="2" Grid.Column="0" Text="{CompiledBinding ProjectDescription}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="150,*">
+                        <StackPanel Spacing="9" Orientation="Vertical">
+                            <CheckBox IsEnabled="False">Unattended Execution</CheckBox>
+                            <CheckBox IsEnabled="False">Upgrade ActiveX Controls</CheckBox>
+                            <CheckBox IsEnabled="False">Require License Key</CheckBox>
+                            <CheckBox IsEnabled="False">Retained In Memory</CheckBox>
+                        </StackPanel>
+
+                        <HeaderedContentControl Grid.Column="1" Header="Threading Model" IsEnabled="False">
+                            <Grid RowDefinitions="Auto,2,Auto,2,Auto" ColumnDefinitions="*,*" Margin="2">
+                                <ComboBox Grid.ColumnSpan="2" />
+                                <RadioButton Grid.Row="2" Grid.ColumnSpan="2">Thread per Object</RadioButton>
+                                <RadioButton Grid.Row="4" IsChecked="True">Thread Pool</RadioButton>
+                                <DockPanel Grid.Row="4" Grid.Column="1" LastChildFill="False">
+                                    <NumericUpDown Value="1" MinWidth="60"/>
+                                    <AccessText VerticalAlignment="Center">threads</AccessText>
+                                </DockPanel>
+                            </Grid>
+                        </HeaderedContentControl>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Make" IsEnabled="False">
+
+            </TabItem>
+            <TabItem Header="Compile" IsEnabled="False">
+
+            </TabItem>
+            <TabItem Header="Component" IsEnabled="False">
+
+            </TabItem>
+            <TabItem Header="Debugging" IsEnabled="False">
+
+            </TabItem>
+
+        </TabControl>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Spacing="6">
+            <Button Command="{CompiledBinding OkCommand}" Content="_OK" />
+            <Button Command="{CompiledBinding CancelCommand}" Content="_Cancel" />
+            <Button Content="_Help" IsEnabled="False" />
+            <StackPanel.Styles>
+                <Style Selector="Button">
+                    <Setter Property="MinWidth" Value="75" />
+                </Style>
+            </StackPanel.Styles>
+        </StackPanel>
+    </Grid>
+</UserControl>

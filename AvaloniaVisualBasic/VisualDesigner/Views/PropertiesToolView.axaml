@@ -1,0 +1,109 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:visualDesigner="clr-namespace:AvaloniaVisualBasic.VisualDesigner"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             xmlns:controls="clr-namespace:AvaloniaVisualBasic.Controls"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="visualDesigner:PropertiesToolViewModel"
+             x:Class="AvaloniaVisualBasic.VisualDesigner.Views.PropertiesToolView">
+    <UserControl.Resources>
+        <DataTemplate x:Key="PropertyTemplate" x:DataType="visualDesigner:PropertyViewModel">
+            <Border
+                BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" SharedSizeGroup="Key" />
+                        <ColumnDefinition Width="1" />
+                        <ColumnDefinition Width="*" SharedSizeGroup="Value" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Name}" Margin="2,0,0,0" />
+                    <Border
+                        Background="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                        Grid.Column="1" />
+                    <controls:PropertyBox PropertyClass="{CompiledBinding PropertyClass}" Object="{Binding Value}" Grid.Column="2" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <ComboBox DockPanel.Dock="Top" SelectedItem="{CompiledBinding SelectedComponentProxy}"
+                  ItemsSource="{CompiledBinding ComponentsProxy}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="visualDesigner:ComponentInstanceViewModel">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock FontWeight="Bold" Text="{CompiledBinding Name}" />
+                        <TextBlock Text="{CompiledBinding BaseClassName}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Alphabetic">
+                <ListBox SelectedItem="{CompiledBinding SelectedProperty}"
+                         ItemTemplate="{StaticResource PropertyTemplate}"
+                         ItemsSource="{CompiledBinding Properties}">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListBox.Styles>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Categorized">
+                <ListBox SelectedItem="{CompiledBinding SelectedProperty}"
+                         ItemsSource="{CompiledBinding CategorizedProperties}">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="IsVisible" Value="{CompiledBinding IsVisible}" x:DataType="visualDesigner:BasePropertyViewModel" />
+                        </Style>
+                    </ListBox.Styles>
+                    <ListBox.DataTemplates>
+                        <DataTemplate x:DataType="visualDesigner:PropertyViewModel">
+                            <ContentControl Content="{Binding}"
+                                            ContentTemplate="{StaticResource PropertyTemplate}"
+                                            BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                                            BorderThickness="1,0,0,0"
+                                            Margin="15,0,0,0" />
+                        </DataTemplate>
+                        <DataTemplate x:DataType="visualDesigner:PropertyCategoryViewModel">
+                            <DockPanel>
+                                <ToggleButton Theme="{DynamicResource &#303;}"
+                                              IsChecked="{CompiledBinding IsExpanded}"
+                                              Width="15"
+                                              Height="15">
+                                </ToggleButton>
+                                <Border
+                                    HorizontalAlignment="Stretch"
+                                    BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                                    BorderThickness="1,0,0,1">
+                                    <TextBlock Text="{Binding Header}"
+                                               HorizontalAlignment="Stretch"
+                                               FontWeight="Bold"/>
+                                </Border>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.DataTemplates>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+        <GridSplitter Grid.Row="2" />
+        <ClassicBorderDecorator Grid.Row="3" BorderThickness="1" BorderStyle="Sunken"
+                                DataContext="{CompiledBinding SelectedProperty}">
+            <DockPanel x:DataType="visualDesigner:PropertyViewModel">
+                <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Text="{CompiledBinding Name}" TextWrapping="WrapWithOverflow" />
+                <TextBlock Text="{CompiledBinding Description}" TextWrapping="WrapWithOverflow" />
+            </DockPanel>
+        </ClassicBorderDecorator>
+    </Grid>
+</UserControl>

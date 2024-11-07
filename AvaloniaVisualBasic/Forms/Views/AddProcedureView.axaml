@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:AddProcedureViewModel"
+             MinWidth="278"
+             x:Class="AvaloniaVisualBasic.Forms.Views.AddProcedureView">
+    <Border Margin="12,18,15,13">
+
+        <Grid ColumnDefinitions="*,10,75">
+
+            <StackPanel Spacing="7">
+
+                <DockPanel>
+                    <TextBlock VerticalAlignment="Center">Name:</TextBlock>
+                    <TextBox Text="{CompiledBinding Name}" Name="NameBox" />
+                </DockPanel>
+
+                <HeaderedContentControl Header="Type">
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,7,Auto" Margin="0,8,0,5">
+                        <RadioButton Grid.Row="0" Grid.Column="0" IsChecked="{CompiledBinding IsSub} " GroupName="Type">Sub</RadioButton>
+                        <RadioButton Grid.Row="0" Grid.Column="1" IsChecked="{CompiledBinding IsProperty} " GroupName="Type">Property</RadioButton>
+                        <RadioButton Grid.Row="2" Grid.Column="0" IsChecked="{CompiledBinding IsFunction} " GroupName="Type">Function</RadioButton>
+                        <RadioButton Grid.Row="2" Grid.Column="1" IsChecked="{CompiledBinding IsEvent} " GroupName="Type">Event</RadioButton>
+                    </Grid>
+                </HeaderedContentControl>
+
+                <HeaderedContentControl Header="Scope">
+                    <Grid ColumnDefinitions="*,*" Margin="0,8,0,3" IsEnabled="{CompiledBinding !IsEvent}">
+                        <RadioButton Grid.Row="0" Grid.Column="0" IsChecked="{CompiledBinding IsPublic}" GroupName="Scope">Public</RadioButton>
+                        <RadioButton Grid.Row="0" Grid.Column="1" IsChecked="{CompiledBinding IsPrivate}" GroupName="Scope">Private</RadioButton>
+                    </Grid>
+                </HeaderedContentControl>
+
+                <CheckBox IsChecked="{CompiledBinding AllLocalStatics}"
+                          IsEnabled="{CompiledBinding !IsEvent}">All Local variables as Statics</CheckBox>
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Spacing="10">
+                <Button Command="{CompiledBinding OkCommand}">_OK</Button>
+                <Button Command="{CompiledBinding Cancel}">_Cancel</Button>
+            </StackPanel>
+
+        </Grid>
+
+    </Border>
+</UserControl>

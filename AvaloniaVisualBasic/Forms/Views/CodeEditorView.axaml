@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             xmlns:input="clr-namespace:Avalonia.Labs.Input"
+             xmlns:vb="clr-namespace:AvaloniaVisualBasic"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             x:DataType="viewModels:CodeEditorViewModel"
+             x:Name="Root"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaVisualBasic.Forms.Views.CodeEditorView">
+    <input:CommandManager.CommandBindings>
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.AddProcedureCommand}"
+                              ExecutingCommand="{CompiledBinding AddProcedure}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.ViewCodeCommand}"
+                              ExecutingCommand="{CompiledBinding ViewCode}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.ViewObjectCommand}"
+                              ExecutingCommand="{CompiledBinding ViewObject}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.UndoCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Undo}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.RedoCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Redo}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.CopyCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Copy}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.PasteCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Paste}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.CutCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Cut}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.DeleteCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Delete}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.RemoveCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Delete}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.FindCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Find}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.ReplaceCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Replace}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.SelectAllCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.SelectAll}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.IndentCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Indent}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.OutdentCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.Outdent}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.InsertFileCommand}"
+                              ExecutingCommand="{CompiledBinding #Root.InsertFile}" />
+
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.ListPropertiesMethodsCommand}"
+                              ExecutingCommand="{x:Static vb:ApplicationCommands.NYICommand}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.ListConstantsCommand}"
+                              ExecutingCommand="{x:Static vb:ApplicationCommands.NYICommand}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.QuickInfoCommand}"
+                              ExecutingCommand="{x:Static vb:ApplicationCommands.NYICommand}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.ParameterInfoCommand}"
+                              ExecutingCommand="{x:Static vb:ApplicationCommands.NYICommand}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.CompleteWordCommand}"
+                              ExecutingCommand="{x:Static vb:ApplicationCommands.NYICommand}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.BookmarksCommand}"
+                              ExecutingCommand="{x:Static vb:ApplicationCommands.NYICommand}" />
+
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.SaveCommand}"
+                              ExecutingCommand="{CompiledBinding SaveForm}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.SaveAsCommand}"
+                              ExecutingCommand="{CompiledBinding SaveFormAs}" />
+    </input:CommandManager.CommandBindings>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="10,*,10,*,10" Margin="0,0,0,2">
+            <ComboBox FontWeight="Bold" Grid.Column="1" SelectedIndex="0">
+                <ComboBoxItem>Form</ComboBoxItem>
+            </ComboBox>
+            <ComboBox FontWeight="Bold" Grid.Column="3" SelectedIndex="0">
+                <ComboBoxItem>Load</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <ClassicBorderDecorator BorderStyle="Sunken" BorderThickness="2">
+            <DockPanel>
+                <Border Width="20"
+                        Background="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.WindowTextBrushKey}}" />
+
+                <avaloniaEdit:TextEditor Name="TextEditor"
+                                         FontFamily="Courier New,Monospace"
+                                         FontSize="13"
+                                         Background="{DynamicResource {x:Static commonControls:SystemColors.WindowBrushKey}}"
+                                         Document="{CompiledBinding Document}"
+                                         HorizontalScrollBarVisibility="Visible"
+                                         VerticalScrollBarVisibility="Visible"
+                                         Padding="10,2,0,2">
+                </avaloniaEdit:TextEditor>
+            </DockPanel>
+        </ClassicBorderDecorator>
+    </DockPanel>
+</UserControl>

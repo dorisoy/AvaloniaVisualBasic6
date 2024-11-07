@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tools="clr-namespace:AvaloniaVisualBasic.Tools"
+             xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="tools:ImmediateToolViewModel"
+             x:Class="AvaloniaVisualBasic.Tools.ImmediateToolView">
+    <ClassicBorderDecorator BorderStyle="Sunken" BorderThickness="2">
+        <avaloniaEdit:TextEditor
+            IsReadOnly="True"
+            Document="{CompiledBinding Document}"
+            FontFamily="Courier New,Monospace"
+            FontSize="13"
+            Background="{DynamicResource {x:Static commonControls:SystemColors.WindowBrushKey}}"
+            HorizontalScrollBarVisibility="Visible"
+            VerticalScrollBarVisibility="Visible"
+        />
+    </ClassicBorderDecorator>
+</UserControl>

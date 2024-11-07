@@ -1,0 +1,92 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:AvaloniaVisualBasic.Controls"
+                    x:ClassModifier="internal">
+
+
+    <ControlTheme TargetType="Border" x:Key="AdornerBorder_Internal">
+        <Setter Property="Background" Value="#2D6BC1" />
+        <Setter Property="Width" Value="7" />
+        <Setter Property="Height" Value="7" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="White" />
+    </ControlTheme>
+
+    <ControlTheme TargetType="controls:ResizeAdorner" x:Key="{x:Type controls:ResizeAdorner}">
+            <Setter Property="(AdornerLayer.IsClipEnabled)" Value="False" />
+            <Setter Property="ClipToBounds" Value="False" />
+            <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Border Name="PART_TopLeft"
+                            Theme="{StaticResource AdornerBorder_Internal}"
+                            Margin="-7,-7,0,0"
+                            controls:ResizeAdorner.ResizeXDirection="Left"
+                            controls:ResizeAdorner.ResizeYDirection="Top"
+                            Cursor="TopLeftCorner"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top" />
+                    <Border Name="PART_Top"
+                            Theme="{StaticResource AdornerBorder_Internal}"
+                            Margin="0,-7,0,0"
+                            controls:ResizeAdorner.ResizeXDirection="None"
+                            controls:ResizeAdorner.ResizeYDirection="Top"
+                            Cursor="TopSide"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top" />
+                    <Border Name="PART_TopRight"
+                            Theme="{StaticResource AdornerBorder_Internal}"
+                            Margin="0,-7,-7,0"
+                            controls:ResizeAdorner.ResizeXDirection="Right"
+                            controls:ResizeAdorner.ResizeYDirection="Top"
+                            Cursor="TopRightCorner"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top" />
+
+                    <Border Name="PART_Left"
+                            Theme="{StaticResource AdornerBorder_Internal}"
+                            Margin="-7,0,0,0"
+                            controls:ResizeAdorner.ResizeXDirection="Left"
+                            controls:ResizeAdorner.ResizeYDirection="None"
+                            Cursor="LeftSide"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center" />
+                    <Border Name="PART_Right"
+                            Theme="{StaticResource AdornerBorder_Internal}"
+                            Margin="0,0,-7,0"
+                            controls:ResizeAdorner.ResizeXDirection="Right"
+                            controls:ResizeAdorner.ResizeYDirection="None"
+                            Cursor="RightSide"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center" />
+
+                    <Border Name="PART_BottomLeft"
+                            Theme="{StaticResource AdornerBorder_Internal}"
+                            Margin="-7,0,0,-7"
+                            controls:ResizeAdorner.ResizeXDirection="Left"
+                            controls:ResizeAdorner.ResizeYDirection="Bottom"
+                            Cursor="BottomLeftCorner"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom" />
+                    <Border Name="PART_Bottom"
+                            Theme="{StaticResource AdornerBorder_Internal}"
+                            Margin="0,0,0,-7"
+                            controls:ResizeAdorner.ResizeXDirection="None"
+                            controls:ResizeAdorner.ResizeYDirection="Bottom"
+                            Cursor="BottomSide"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom" />
+                    <Border Name="PART_BottomRight"
+                            Theme="{StaticResource AdornerBorder_Internal}"
+                            Margin="0,0,-7,-7"
+                            controls:ResizeAdorner.ResizeXDirection="Right"
+                            controls:ResizeAdorner.ResizeYDirection="Bottom"
+                            Cursor="BottomRightCorner"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+</ResourceDictionary>

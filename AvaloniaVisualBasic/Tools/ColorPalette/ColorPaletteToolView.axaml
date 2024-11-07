@@ -1,0 +1,129 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tools="clr-namespace:AvaloniaVisualBasic.Tools"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             xmlns:converters="clr-namespace:AvaloniaVisualBasic.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="tools:ColorPaletteToolViewModel"
+             x:Class="AvaloniaVisualBasic.Tools.ColorPaletteToolView">
+
+    <Design.DataContext>
+        <tools:ColorPaletteToolViewModel />
+    </Design.DataContext>
+
+    <StackPanel Orientation="Horizontal" Spacing="6">
+        <StackPanel Orientation="Vertical" Spacing="3" Width="39">
+            <ClassicBorderDecorator BorderThickness="1" Height="35" BorderStyle="Thin">
+
+                <Border BorderBrush="Black"
+                        PointerPressed="PickBackColor"
+                        BorderThickness="1" Background="{CompiledBinding SelectedBackColor.Color, Converter={x:Static converters:VBColorConverter.Instance}}">
+
+                    <Panel>
+
+                        <Border Width="14" Height="13"
+                                PointerPressed="PickForeColor"
+                                Background="{CompiledBinding SelectedForeColor.Color, Converter={x:Static converters:VBColorConverter.Instance}}" BorderBrush="Black"
+                                BorderThickness="1">
+                        </Border>
+
+                        <Border BorderThickness="1"
+                                BorderBrush="Black"
+                                IsVisible="{CompiledBinding !PickingBackColor}"
+                                IsHitTestVisible="False"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <Border BorderThickness="1" BorderBrush="White">
+                                <Panel Width="14" Height="13" />
+                            </Border>
+                        </Border>
+
+                        <Border BorderBrush="White"
+                                BorderThickness="1"
+                                IsHitTestVisible="False"
+                                IsVisible="{CompiledBinding PickingBackColor}">
+                            <Border BorderBrush="Black" BorderThickness="1" />
+                        </Border>
+
+                    </Panel>
+
+
+
+                </Border>
+
+            </ClassicBorderDecorator>
+
+            <ClassicBorderDecorator BorderThickness="1" Height="17" BorderStyle="Thin">
+                <Border BorderBrush="Black" BorderThickness="1" Background="{CompiledBinding SelectedBackColor.Color, Converter={x:Static converters:VBColorConverter.Instance}}">
+                    <TextBlock Text="Aa" Foreground="{CompiledBinding SelectedForeColor.Color, Converter={x:Static converters:VBColorConverter.Instance}}" HorizontalAlignment="Center" />
+                </Border>
+            </ClassicBorderDecorator>
+        </StackPanel>
+
+        <ListBox
+            VerticalAlignment="Top"
+            BorderThickness="1"
+            Width="278"
+            Padding="1"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            SelectedItem="{CompiledBinding SelectedColor}"
+            ItemsSource="{CompiledBinding Palette}"
+            BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.WindowFrameBrushKey}}"
+            Background="{DynamicResource {x:Static commonControls:SystemColors.AppWorkspaceBrushKey}}">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="tools:ColorPaletteViewModel">
+                    <Border
+                        Width="16"
+                        Height="16"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.WindowFrameBrushKey}}"
+                        Background="{Binding Color, Converter={x:Static converters:VBColorConverter.Instance}}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerTheme>
+                <ControlTheme TargetType="ListBoxItem">
+                    <Setter Property="ClipToBounds" Value="False" />
+                    <Setter Property="Margin" Value="0,0,1,1" />
+                    <Setter Property="Template">
+                        <ControlTemplate>
+                            <Border Name="PART_Frame">
+                                <ContentPresenter Name="PART_ContentPresenter"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter>
+                    <Style Selector="^:selected">
+                        <Setter Property="ZIndex" Value="9999" />
+                        <Style Selector="^  /template/ Border#PART_Frame">
+                            <Setter Property="Background" Value="White" />
+                            <Setter Property="Padding" Value="1" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="BorderBrush" Value="Black" />
+                            <Setter Property="Margin" Value="-2" />
+                        </Style>
+                    </Style>
+                </ControlTheme>
+            </ListBox.ItemContainerTheme>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <StackPanel Orientation="Vertical" Spacing="6" MinWidth="106">
+            <Button>Default</Button>
+            <Button Content="Define Colors">
+                <Button.Flyout>
+                    <Flyout>
+                        <ColorView ColorChanged="ColorView_OnColorChanged" Name="ColorView" />
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

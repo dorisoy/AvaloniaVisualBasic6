@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             xmlns:common="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:SaveChangesViewModel"
+             Height="270"
+             x:Class="AvaloniaVisualBasic.Forms.Views.SaveChangesView">
+    <Design.DataContext>
+        <viewModels:SaveChangesViewModel/>
+    </Design.DataContext>
+
+    <Grid Margin="11,12,11,15" ColumnDefinitions="284,20,75">
+
+        <DockPanel>
+            <TextBlock TextWrapping="WrapWithOverflow" DockPanel.Dock="Top" Margin="0,0,0,10">Save changes to the following files?</TextBlock>
+
+            <ListBox SelectionMode="Toggle,Multiple"
+                     ItemsSource="{CompiledBinding ChangedFiles}"
+                     SelectedItems="{CompiledBinding SelectedFiles}"
+                     >
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem:selected">
+                        <Style Selector="^:not(:focus-within)">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource {x:Static common:SystemColors.HighlightTextBrushKey}}"/>
+                            <Style Selector="^ /template/ Border#Bd">
+                                <Setter Property="Background"
+                                        Value="{DynamicResource {x:Static common:SystemColors.HighlightBrushKey}}"/>
+                            </Style>
+                        </Style>
+                    </Style>
+                </ListBox.Styles>
+            </ListBox>
+        </DockPanel>
+
+        <StackPanel Grid.Column="2" Orientation="Vertical" Spacing="5">
+            <Button Command="{CompiledBinding Yes}">Yes</Button>
+            <Button Command="{CompiledBinding No}">No</Button>
+            <Button Command="{CompiledBinding Cancel}">Cancel</Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

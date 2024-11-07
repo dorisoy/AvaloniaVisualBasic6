@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:AvaloniaVisualBasic.Forms.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:OptionsViewModel"
+             Width="412"
+             Height="329"
+             x:Class="AvaloniaVisualBasic.Forms.Views.OptionsView">
+    <Grid RowDefinitions="*,6,Auto" Margin="6,7">
+
+        <TabControl>
+            <TabItem Header="Editor" IsEnabled="True">
+
+                <Grid RowDefinitions="Auto,10,Auto" Margin="8" IsEnabled="False">
+
+                    <HeaderedContentControl Header="Code Settings" Padding="10">
+                        <WrapPanel Orientation="Vertical" MaxHeight="100">
+                            <CheckBox Margin="0,0,0,4">Auto Syntax Check</CheckBox>
+                            <CheckBox Margin="0,0,0,4">Require Variable Declaration</CheckBox>
+                            <CheckBox Margin="0,0,0,4">Auto List Members</CheckBox>
+                            <CheckBox Margin="0,0,0,4">Auto Quick Info</CheckBox>
+                            <CheckBox Margin="0,0,0,4">Auto Data Tips</CheckBox>
+                            <CheckBox Margin="20,0,0,6">Auto Indent</CheckBox>
+                            <DockPanel Margin="20,0,0,0">
+                                <AccessText VerticalAlignment="Center" Margin="0,0,10,0">Tab Width:</AccessText>
+                                <TextBox Width="60" Text="4" />
+                            </DockPanel>
+                        </WrapPanel>
+                    </HeaderedContentControl>
+
+                    <HeaderedContentControl Header="Window Settings" Grid.Row="2" Padding="10">
+                        <StackPanel Orientation="Vertical" Spacing="4">
+                            <CheckBox>Drag-and-drop Text Editing</CheckBox>
+                            <CheckBox>Default to Full Module View</CheckBox>
+                            <CheckBox>Procedure Separator</CheckBox>
+                        </StackPanel>
+                    </HeaderedContentControl>
+
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Editor format" IsEnabled="False">
+
+            </TabItem>
+            <TabItem Header="General" IsEnabled="False">
+
+            </TabItem>
+            <TabItem Header="Docking" IsEnabled="False">
+
+            </TabItem>
+            <TabItem Header="Environment" IsEnabled="False">
+
+            </TabItem>
+            <TabItem Header="Advanced" IsEnabled="False">
+
+            </TabItem>
+        </TabControl>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Spacing="6">
+            <Button Command="{CompiledBinding Close}" Width="75">OK</Button>
+            <Button Command="{CompiledBinding Close}" Width="75">Cancel</Button>
+            <Button IsEnabled="False" Width="75">Help</Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

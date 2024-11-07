@@ -1,0 +1,91 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tools="clr-namespace:AvaloniaVisualBasic.Tools"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             xmlns:avaloniaVisualBasic="clr-namespace:AvaloniaVisualBasic"
+             xmlns:utils="clr-namespace:AvaloniaVisualBasic.Utils"
+             xmlns:converters="clr-namespace:AvaloniaVisualBasic.Converters"
+             xmlns:controls="clr-namespace:AvaloniaVisualBasic.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="tools:ProjectToolViewModel"
+             x:Class="AvaloniaVisualBasic.Tools.ProjectToolView">
+    <UserControl.Resources>
+        <converters:StringFormatConverter x:Key="StringFormatConverter" Format="{}{0} ({1})" />
+        <controls:BoolToWeightConverter x:Key="ProjectTitleConverter" WhenTrue="Bold" />
+    </UserControl.Resources>
+    <DockPanel>
+        <commonControls:ToolBar DockPanel.Dock="Top" Size="Small" TextPlacement="NoText">
+            <commonControls:ToolBarButton ToolTip.Tip="View Code" SmallIcon="/Icons/code.gif" Command="{CompiledBinding ViewCodeCommand}" />
+            <commonControls:ToolBarButton ToolTip.Tip="View Object" SmallIcon="/Icons/object.gif" Command="{CompiledBinding ViewObjectCommand}" />
+            <Separator />
+            <commonControls:ToolBarButton ToolTip.Tip="Toggle Folders" SmallIcon="/Icons/folder.gif" IsToggleButton="True" IsChecked="{CompiledBinding ToggleFolders}" />
+        </commonControls:ToolBar>
+        <TreeView ItemsSource="{CompiledBinding LoadedProjects}"
+                  SelectedItem="{CompiledBinding SelectedItem}"
+                  DoubleTapped="TreeView_OnDoubleTapped">
+            <TreeView.Styles>
+                <Style Selector="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="{CompiledBinding IsExpanded, Mode=TwoWay}" x:DataType="tools:IProjectTreeElement"/>
+                </Style>
+            </TreeView.Styles>
+            <TreeView.DataTemplates>
+                <TreeDataTemplate x:DataType="tools:ProjectViewModel" ItemsSource="{CompiledBinding Elements}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/project.gif" Width="16" Height="16" />
+                        <TextBlock FontWeight="{CompiledBinding IsStartupProject, Converter={StaticResource ProjectTitleConverter}}">
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                    <CompiledBinding Path="Name" />
+                                    <CompiledBinding Path="File" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </TreeDataTemplate>
+                <TreeDataTemplate x:DataType="tools:ProjectFormsViewModel" ItemsSource="{CompiledBinding Forms}">
+                    <StackPanel Orientation="Horizontal">
+                        <Panel>
+                            <Image Source="/Icons/project_folder.gif" Width="16" Height="16" IsVisible="{CompiledBinding IsExpanded}" />
+                            <Image Source="/Icons/folder_closed.gif" Width="16" Height="16" IsVisible="{CompiledBinding !IsExpanded}"/>
+                        </Panel>
+                        <TextBlock Text="Forms" />
+                    </StackPanel>
+                </TreeDataTemplate>
+                <TreeDataTemplate x:DataType="tools:FormViewModel">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Icons/form.gif" Width="16" Height="16" />
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource StringFormatConverter}">
+                                    <CompiledBinding Path="Name" />
+                                    <CompiledBinding Path="File" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </TreeDataTemplate>
+            </TreeView.DataTemplates>
+            <TreeView.ContextFlyout>
+                <MenuFlyout>
+                    <MenuItem IsVisible="{CompiledBinding !!SelectedProject}" Header="Set as Start Up" Command="{CompiledBinding SetAsStartUp}" />
+                    <MenuItem IsVisible="{CompiledBinding !!SelectedProject}" Header="{CompiledBinding SelectedProject.Name, StringFormat={}{0} Properties}" Command="{CompiledBinding EditProjectProperties}" />
+                    <MenuItem IsVisible="{CompiledBinding SelectedFormOrForms}" utils:MenuUtils.MenuIcon="/Icons/object.gif" Header="View Object" Command="{CompiledBinding ViewObjectCommand}" />
+                    <MenuItem IsVisible="{CompiledBinding SelectedFormOrForms}" utils:MenuUtils.MenuIcon="/Icons/code.gif" Header="View Code" Command="{CompiledBinding ViewCodeCommand}" />
+                    <Separator IsVisible="{CompiledBinding SelectedFormOrForms}"/>
+                    <MenuItem IsVisible="{CompiledBinding SelectedForm}" utils:MenuUtils.MenuIcon="/Icons/properties.gif" Header="Properties" Command="{CompiledBinding FormPropertiesCommand}" />
+                    <Separator IsVisible="{CompiledBinding SelectedFormOrForms}"/>
+                    <MenuItem Header="Add">
+                        <MenuItem utils:MenuUtils.MenuIcon="/Icons/addform.gif"  Command="{CompiledBinding AddFormCommand}" Header="Form" />
+                    </MenuItem>
+                    <MenuItem IsVisible="{CompiledBinding !!SelectedForm}" Header="{CompiledBinding SelectedForm.Name, StringFormat=Save {0}}" />
+                    <MenuItem IsVisible="{CompiledBinding !!SelectedForm}" Header="{CompiledBinding SelectedForm.Name, StringFormat=Save {0} As...}" />
+                    <MenuItem IsVisible="{CompiledBinding !!SelectedForm}" Command="{CompiledBinding DeleteForm}" Header="{CompiledBinding SelectedForm.Name, StringFormat=Remove {0}}" />
+                    <Separator />
+                    <MenuItem Header="Print" utils:MenuUtils.MenuIcon="/Icons/print.gif" Command="{x:Static avaloniaVisualBasic:ApplicationCommands.DisabledCommand}" />
+                </MenuFlyout>
+            </TreeView.ContextFlyout>
+        </TreeView>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:builtinControls="clr-namespace:AvaloniaVisualBasic.Runtime.BuiltinControls">
+    <ControlTheme x:Key="{x:Type builtinControls:VBLabel}"
+                  TargetType="builtinControls:VBLabel">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ClassicBorderDecorator
+                    Name="PART_Border"
+                    BorderThickness="2"
+                    BorderStyle="Sunken">
+                </ClassicBorderDecorator>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

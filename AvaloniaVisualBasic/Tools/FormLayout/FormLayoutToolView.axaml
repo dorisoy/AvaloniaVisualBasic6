@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tools="clr-namespace:AvaloniaVisualBasic.Tools"
+             xmlns:avaloniaVisualBasic="clr-namespace:AvaloniaVisualBasic"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             xmlns:controls="clr-namespace:AvaloniaVisualBasic.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="tools:FormLayoutToolViewModel"
+             x:Class="AvaloniaVisualBasic.Tools.FormLayoutToolView">
+    <ClassicBorderDecorator BorderStyle="Sunken" BorderThickness="2"
+                            Background="{DynamicResource {x:Static commonControls:SystemColors.WindowBrushKey}}"
+                            Padding="20">
+        <controls:ProportionPanel Proportion="1.333">
+            <DockPanel>
+                <ClassicBorderDecorator BorderStyle="AltRaised"
+                                        BorderThickness="2"
+                                        DockPanel.Dock="Bottom"
+                                        Height="10" Margin="20,-2"
+                                        BorderLightBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlDarkDarkBrushKey}}"
+                                        Background="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                                        Padding="24,14" />
+
+                <ClassicBorderDecorator BorderStyle="AltRaised"
+                                        BorderThickness="2"
+                                        BorderLightBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlDarkDarkBrushKey}}"
+                                        Background="{DynamicResource {x:Static commonControls:SystemColors.ControlBrushKey}}"
+                                        Padding="24,14">
+                    <ClassicBorderDecorator BorderStyle="Sunken" BorderThickness="2"
+                                            Background="{DynamicResource {x:Static commonControls:SystemColors.DesktopBrushKey}}">
+                        <Canvas ClipToBounds="True">
+                            <Border Canvas.Left="10" Canvas.Top="10" BorderThickness="1"
+                                    BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlTextBrushKey}}"
+                                    Width="50" Height="30" Padding="1">
+                                <Border BorderThickness="1"
+                                        BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlTextBrushKey}}">
+                                    <DockPanel>
+                                        <Border DockPanel.Dock="Top" BorderThickness="0,0,0,1" Background="Gray"
+                                                BorderBrush="{DynamicResource {x:Static commonControls:SystemColors.ControlTextBrushKey}}"
+                                                Height="4" />
+                                        <Border Background="White">
+                                            <TextBlock>Form1</TextBlock>
+                                        </Border>
+                                    </DockPanel>
+                                </Border>
+                            </Border>
+                        </Canvas>
+                    </ClassicBorderDecorator>
+                </ClassicBorderDecorator>
+            </DockPanel>
+        </controls:ProportionPanel>
+    </ClassicBorderDecorator>
+</UserControl>

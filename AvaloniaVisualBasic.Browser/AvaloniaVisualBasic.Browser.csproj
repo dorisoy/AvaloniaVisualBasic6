@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>$(DotNetVersionBrowser)</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RunAOTCompilation>true</RunAOTCompilation>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Browser" Version="$(AvaloniaVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaloniaVisualBasic\AvaloniaVisualBasic.csproj" />
+  </ItemGroup>
+
+  <!-- https://github.com/dotnet/runtime/issues/109289#issuecomment-2448960065 -->
+  <Target Name="Issue109289_Workaround" AfterTargets="_BrowserWasmWriteRspForLinking" Condition=" $(NETCoreSdkVersion.Contains('rc.2')) ">
+    <ItemGroup>
+      <_WasmLinkStepArgs Remove="@(_EmccLinkStepArgs)" />
+      <_EmccLinkStepArgs Remove="&quot;%(_WasmNativeFileForLinking.Identity)&quot;" />
+      <_WasmLinkDependencies Remove="@(_WasmNativeFileForLinking)" />
+
+      <_SkiaSharpToReorder Include="@(_WasmNativeFileForLinking)" Condition="$([System.String]::Copy('%(FullPath)').Contains('SkiaSharp'))" />
+      <_WasmNativeFileForLinking Remove="@(_SkiaSharpToReorder)" />
+      <_WasmNativeFileForLinking Include="@(_SkiaSharpToReorder)" />
+
+      <_EmccLinkStepArgs Include="&quot;%(_WasmNativeFileForLinking.Identity)&quot;" />
+      <_WasmLinkDependencies Include="@(_WasmNativeFileForLinking)" />
+      <_WasmLinkStepArgs Include="@(_EmccLinkStepArgs)" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <None Remove="Fonts\*.ttf" />
+    <AvaloniaResource Include="Fonts\*.ttf" />
+  </ItemGroup>
+</Project>

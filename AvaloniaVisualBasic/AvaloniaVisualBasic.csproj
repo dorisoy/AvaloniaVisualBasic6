@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>$(DotNetVersion)</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)"/>
+        <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.1.0"/>
+        <PackageReference Include="Avalonia.Controls.DataGrid" Version="$(AvaloniaVersion)"/>
+        <PackageReference Include="Avalonia.Controls.ColorPicker" Version="$(AvaloniaVersion)"/>
+        <PackageReference Include="Classic.Avalonia.Theme" Version="$(ClassicAvaloniaVersion)"/>
+        <PackageReference Include="Classic.Avalonia.Theme.Dock" Version="$(ClassicAvaloniaVersion)"/>
+        <PackageReference Include="Classic.Avalonia.Theme.ColorPicker" Version="$(ClassicAvaloniaVersion)"/>
+        <PackageReference Include="Classic.Avalonia.Theme.DataGrid" Version="$(ClassicAvaloniaVersion)"/>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+        <PackageReference Include="Pure.DI" Version="2.1.37">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Dock.Avalonia" Version="$(DockVersion)"/>
+        <PackageReference Include="Dock.Model" Version="$(DockVersion)"/>
+        <PackageReference Include="Dock.Model.MVVM" Version="$(DockVersion)"/>
+        <PackageReference Include="Dock.Model.Avalonia" Version="$(DockVersion)"/>
+        <PackageReference Include="Dock.Serializer" Version="$(DockVersion)"/>
+        <PackageReference Include="PropertyChanged.SourceGenerator" Version="1.0.8">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="R3" Version="1.2.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AvaloniaVisualBasic.Runtime\AvaloniaVisualBasic.Runtime.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Icons\**\*.gif"/>
+        <AvaloniaResource Include="Icons\**\*.gif"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Controls\MDI\MDIHost.axaml.cs">
+        <DependentUpon>MDIHost.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\MDI\MDIWindow.axaml.cs">
+        <DependentUpon>MDIWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="IDE\MDIControllerView.axaml.cs">
+        <DependentUpon>MDIControllerView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Tools\Projects\ProjectToolView.axaml.cs">
+        <DependentUpon>ProjectToolView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Tools\FormLayout\FormLayoutToolView.axaml.cs">
+        <DependentUpon>FormLayoutToolView.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+</Project>

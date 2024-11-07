@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:visualDesigner="clr-namespace:AvaloniaVisualBasic.VisualDesigner"
+             xmlns:commonControls="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="visualDesigner:ToolBoxToolViewModel"
+             x:Class="AvaloniaVisualBasic.VisualDesigner.Views.ToolBoxToolView">
+    <Design.DataContext>
+        <visualDesigner:ToolBoxToolViewModel />
+    </Design.DataContext>
+
+    <DockPanel>
+        <ClassicBorderDecorator DockPanel.Dock="Top" BorderStyle="Raised" BorderThickness="3">
+            <TextBlock VerticalAlignment="Center" TextAlignment="Center">General</TextBlock>
+        </ClassicBorderDecorator>
+        <ItemsControl ItemsSource="{CompiledBinding Components}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="visualDesigner:ComponentToolViewModel">
+                    <commonControls:ToolBarButton LargeIcon="{CompiledBinding Icon}"
+                                                  IsChecked="{CompiledBinding IsSelected}"
+                                                  ToolTip.Tip="{CompiledBinding Name}">
+                    </commonControls:ToolBarButton>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Styles>
+                <Style Selector="commonControls|ToolBarButton">
+                    <Setter Property="Size" Value="Large"/>
+                    <Setter Property="IsToggleButton" Value="True "/>
+                    <Setter Property="Width" Value="28"/>
+                    <Setter Property="Height" Value="28"/>
+                </Style>
+            </ItemsControl.Styles>
+        </ItemsControl>
+        <!-- <WrapPanel> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/cursor.gif" IsChecked="True" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/picture.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/label.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/textbox.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/groupbox.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/button.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/checkbox.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/radio.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/combo.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/listbox.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/hscroll.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/vscroll.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/timer.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/drives.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/directories.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/files.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/shape.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/line.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/image.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/data.gif" /> -->
+        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/ole.gif" /> -->
+        <!-- </WrapPanel> -->
+    </DockPanel>
+</UserControl>

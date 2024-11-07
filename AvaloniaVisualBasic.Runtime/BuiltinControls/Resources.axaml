@@ -1,0 +1,89 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:builtinControls="clr-namespace:AvaloniaVisualBasic.Runtime.BuiltinControls"
+                    xmlns:common="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia">
+    <ControlTheme x:Key="{x:Type builtinControls:VBCheckBox}"
+                  TargetType="builtinControls:VBCheckBox"
+                  BasedOn="{StaticResource {x:Type CheckBox}}">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <!-- copy paste from Classic.Avalonia, with changed background template binding -->
+                <BulletDecorator Background="{TemplateBinding Background}">
+                    <BulletDecorator.Bullet>
+                        <!-- Draw Checkmark border and tick mark -->
+                        <ClassicBorderDecorator x:Name="CheckMark"
+                                                BorderStyle="Sunken"
+                                                Background="{DynamicResource {x:Static common:SystemColors.WindowBrushKey}}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <Path x:Name="CheckMarkPath"
+                                  Margin="1,1,1,1"
+                                  Width="7"
+                                  Height="7"
+                                  FlowDirection="LeftToRight"
+                                  Fill="{TemplateBinding Foreground}"
+                                  Data="M 0 2.0 L 0 4.8 L 2.5 7.4 L 7.1 2.8 L 7.1 0 L 2.5 4.6 Z" />
+                        </ClassicBorderDecorator>
+                    </BulletDecorator.Bullet>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      IsVisible="{TemplateBinding Content,
+                                                                Converter={x:Static ObjectConverters.IsNotNull}}"
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      TextElement.Foreground="{TemplateBinding Foreground}"
+                                      RecognizesAccessKey="True" />
+                </BulletDecorator>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme x:Key="FlatVBCheckBox"
+                  TargetType="builtinControls:VBCheckBox"
+                  BasedOn="{StaticResource {x:Type builtinControls:VBCheckBox}}">
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="BorderThickness" Value="2" />
+    </ControlTheme>
+
+
+
+    <ControlTheme x:Key="{x:Type builtinControls:VBOptionButton}"
+                  TargetType="builtinControls:VBOptionButton"
+                  BasedOn="{StaticResource {x:Type RadioButton}}">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <!-- copy paste from Classic.Avalonia, with changed background template binding -->
+                <BulletDecorator Background="{TemplateBinding Background}">
+                    <BulletDecorator.Bullet>
+                        <!-- Draw Checkmark border and tick mark -->
+                        <ClassicBorderDecorator x:Name="Border"
+                                                        Width="13"
+                                                        Height="13"
+                                                        BorderStyle="RadioButton"
+                                                        Background="{DynamicResource {x:Static common:SystemColors.WindowBrushKey}}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <Ellipse x:Name="checkMark"
+                                     Fill="{TemplateBinding Foreground}"
+                                     Width="4"
+                                     Height="4"/>
+                        </ClassicBorderDecorator>
+                    </BulletDecorator.Bullet>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Margin="{TemplateBinding Padding}"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      RecognizesAccessKey="True"/>
+                </BulletDecorator>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <ControlTheme x:Key="FlatVBOptionButton"
+                  TargetType="builtinControls:VBOptionButton"
+                  BasedOn="{StaticResource {x:Type builtinControls:VBOptionButton}}">
+        <Setter Property="BorderBrush" Value="Black" />
+    </ControlTheme>
+</ResourceDictionary>
