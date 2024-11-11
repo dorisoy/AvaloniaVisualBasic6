@@ -20,7 +20,8 @@
                 <DataTemplate x:DataType="visualDesigner:ComponentToolViewModel">
                     <commonControls:ToolBarButton LargeIcon="{CompiledBinding Icon}"
                                                   IsChecked="{CompiledBinding IsSelected}"
-                                                  ToolTip.Tip="{CompiledBinding Name}">
+                                                  ToolTip.Tip="{CompiledBinding Name}"
+                                                  DoubleTapped="OnToolDoubleTap">
                     </commonControls:ToolBarButton>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -38,28 +39,5 @@
                 </Style>
             </ItemsControl.Styles>
         </ItemsControl>
-        <!-- <WrapPanel> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/cursor.gif" IsChecked="True" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/picture.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/label.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/textbox.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/groupbox.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/button.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/checkbox.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/radio.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/combo.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/listbox.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/hscroll.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/vscroll.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/timer.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/drives.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/directories.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/files.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/shape.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/line.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/image.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/data.gif" /> -->
-        <!--     <commonControls:ToolBarButton LargeIcon="/Icons/ole.gif" /> -->
-        <!-- </WrapPanel> -->
     </DockPanel>
 </UserControl>

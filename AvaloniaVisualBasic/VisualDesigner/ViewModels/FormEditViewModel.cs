@@ -126,11 +126,21 @@ public partial class FormEditViewModel : BaseEditorWindowViewModel
         AllComponents.Add(Form);
     }
 
+    public void SpawnControlCenter(ComponentBaseClass componentClass)
+    {
+        SpawnControlAt(componentClass, new Rect(0, 0, Form.Width, Form.Height).CenterRect(new Rect(0, 0, 50, 50)));
+    }
+
     public void SpawnControl(Rect rect)
     {
         if (ToolsBoxToolViewModel.SelectedComponent?.BaseClass is not { } baseClass)
             return;
 
+        SpawnControlAt(baseClass, rect);
+    }
+
+    private void SpawnControlAt(ComponentBaseClass baseClass, Rect rect)
+    {
         var newName = baseClass.Name + Components.Count;
         var newComponent = new ComponentInstanceViewModel(this, new ComponentInstance(baseClass, newName)
             .SetProperty(VBProperties.CaptionProperty, newName)
@@ -145,7 +155,7 @@ public partial class FormEditViewModel : BaseEditorWindowViewModel
         Components.Add(newComponent);
         AllComponents.Add(newComponent);
 
-        ToolsBoxToolViewModel.SelectedComponent = ToolsBoxToolViewModel.Components[0];
+        ToolsBoxToolViewModel.SelectedComponent = ToolsBoxToolViewModel.Arrow;
         SelectedComponent = newComponent;
     }
 
