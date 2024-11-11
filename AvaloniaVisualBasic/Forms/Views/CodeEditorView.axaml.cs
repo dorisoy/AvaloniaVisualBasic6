@@ -1,15 +1,20 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Labs.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
 using AvaloniaEdit;
 using AvaloniaEdit.Document;
+using AvaloniaEdit.Highlighting;
+using AvaloniaEdit.Highlighting.Xshd;
 using AvaloniaVisualBasic.Controls;
 using AvaloniaVisualBasic.Events;
 using AvaloniaVisualBasic.Forms.ViewModels;
@@ -33,6 +38,22 @@ public partial class CodeEditorView : UserControl
     public DelegateCommand Replace { get; }
     public DelegateCommand SelectAll { get; }
 
+    static CodeEditorView()
+    {
+        var uri = new Uri("avares://AvaloniaVisualBasic/Resources/TextHighlighting/VB6.xshd.xml");
+
+        // Get the asset loader from Avalonia
+        var xshdContent = AssetLoader.Open(uri);
+        
+        if (xshdContent == null)
+            throw new InvalidOperationException("VB6 XSHD resource not found");
+
+        using var reader = new XmlTextReader(xshdContent);
+        var xshd = HighlightingLoader.LoadXshd(reader);
+        var highlightingDefinition = HighlightingLoader.Load(xshd, HighlightingManager.Instance);
+        HighlightingManager.Instance.RegisterHighlighting("VB6", new[] { ".vb6", ".bas", ".frm", ".cls" }, highlightingDefinition);
+    }
+    
     public CodeEditorView()
     {
         Undo = new DelegateCommand(() => TextEditor.Undo(), () => TextEditor?.CanUndo ?? false);
@@ -119,6 +140,8 @@ public partial class CodeEditorView : UserControl
                     form.Handled = true;
                 }
             });
+
+            TextEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("VB6");
         }
     }
 
