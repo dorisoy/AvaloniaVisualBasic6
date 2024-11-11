@@ -27,6 +27,12 @@ public class VBFormRuntime : ClassicWindow, IModuleExecutionRoot
         windowContext.ExecuteSub("Form_Load");
     }
 
+    protected override void OnResized(WindowResizedEventArgs e)
+    {
+        base.OnResized(e);
+        windowContext.ExecuteSub("Form_Resize");
+    }
+
     public void ExecuteSub(string name)
     {
         windowContext.ExecuteSub(name);

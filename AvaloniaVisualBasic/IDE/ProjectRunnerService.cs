@@ -130,7 +130,10 @@ public partial class ProjectRunnerService : IProjectRunnerService
 
         window = InstantiateWindow(form);
         if (form.GetPropertyOrDefault(VBProperties.NameProperty) is { } formName)
+        {
             window.Context.ExecutionContext.AllocVariable(window.Context.RootEnv, formName, new Vb6Value(window));
+            window.Context.ExecutionContext.AllocVariable(window.Context.RootEnv, "Me", new Vb6Value(window));
+        }
 
         var task = windowManager.ShowManagedWindow(window);
         window.Content = VBLoader.SpawnComponents(element, window.Context.ExecutionContext, window.Context.RootEnv);
@@ -152,9 +155,21 @@ public partial class ProjectRunnerService : IProjectRunnerService
 
         public VBWindowContext Context => windowContext;
 
+        private bool first;
+
         public VBMDIFormRuntime(IWindowManager windowManager)
         {
             windowContext = new VBWindowContext(new MDIStandaloneStandardLib(windowManager));
+            this.GetObservable(BoundsProperty)
+                .Subscribe(new ActionObserver<Rect>(_ =>
+                {
+                    if (first)
+                    {
+                        first = false;
+                        return;
+                    }
+                    windowContext.ExecuteSub("Form_Resize");
+                }));
         }
 
         protected override void OnLoaded(RoutedEventArgs e)

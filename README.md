@@ -4,6 +4,8 @@ A recreation of the classic Visual Basic 6 IDE and language in C# with Avalonia.
 
 This is purely toy and for fun project. All the rights to the Visual Basic name, icons, graphics, belong to Microsoft Corporation.
 
+### [>> Open a web version in your browser! <<](https://bandysc.github.io/AvaloniaVisualBasic6/)
+
 ## Features
 
 - Visual Designer

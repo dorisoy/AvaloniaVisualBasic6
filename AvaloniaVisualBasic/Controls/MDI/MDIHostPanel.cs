@@ -184,7 +184,7 @@ public class MDIHostPanel : Panel
             }
         }
 
-        foreach (var child in Children)
+        foreach (var child in Children.ToList())
         {
             if (child is MDIBlockerControl blocker)
             {

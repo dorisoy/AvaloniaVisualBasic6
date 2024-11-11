@@ -61,7 +61,10 @@ public class VBLoader
 
         window = ((FormComponentClass)form.BaseClass).InstantiateWindow(form);
         if (form.GetPropertyOrDefault(VBProperties.NameProperty) is { } formName)
+        {
             window.Context.ExecutionContext.AllocVariable(window.Context.RootEnv, formName, new Vb6Value(window));
+            window.Context.ExecutionContext.AllocVariable(window.Context.RootEnv, "Me", new Vb6Value(window));
+        }
 
         window.Content = SpawnComponents(element, window.Context.ExecutionContext, window.Context.RootEnv);
         window.Context.SetCode(code: element.Code);
