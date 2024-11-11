@@ -75,6 +75,7 @@ public partial class App : Application
             {
                 DataContext = rootViewModel
             };
+            Static.MainView.WindowInitialized();
         }
 
         base.OnFrameworkInitializationCompleted();

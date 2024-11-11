@@ -199,6 +199,17 @@ public partial class FormEditViewModel : BaseEditorWindowViewModel
         selectedComponent.Top = Form.Height / 2 - selectedComponent.Height / 2;
     }
 
+    public void DeleteSelected()
+    {
+        if (selectedComponent == null)
+            return;
+
+        var component = selectedComponent;
+
+        Components.Remove(component);
+        AllComponents.Remove(component);
+    }
+
     public void SaveForm() => projectService.SaveForm(formDefinition, false).ListenErrors();
 
     public void SaveFormAs() => projectService.SaveForm(formDefinition, true).ListenErrors();

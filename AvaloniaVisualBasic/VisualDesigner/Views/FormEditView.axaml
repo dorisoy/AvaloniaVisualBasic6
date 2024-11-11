@@ -10,7 +10,6 @@
              xmlns:views="clr-namespace:AvaloniaVisualBasic.VisualDesigner.Views"
              xmlns:vb="clr-namespace:AvaloniaVisualBasic"
              xmlns:input="clr-namespace:Avalonia.Labs.Input"
-             xmlns:runtime="clr-namespace:AvaloniaVisualBasic.VisualDesigner;assembly=AvaloniaVisualBasic.Runtime"
              xmlns:components="clr-namespace:AvaloniaVisualBasic.Runtime.Components;assembly=AvaloniaVisualBasic.Runtime"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
              x:DataType="visualDesigner:FormEditViewModel"
@@ -37,6 +36,8 @@
                               ExecutingCommand="{CompiledBinding CenterHorizontally}" />
         <input:CommandBinding Command="{x:Static vb:ApplicationCommands.CenterVerticallyCommand}"
                               ExecutingCommand="{CompiledBinding CenterVertically}" />
+        <input:CommandBinding Command="{x:Static vb:ApplicationCommands.DeleteCommand}"
+                              ExecutingCommand="{CompiledBinding DeleteSelected}" />
     </input:CommandManager.CommandBindings>
     <Design.DataContext>
         <visualDesigner:FormEditViewModel />
@@ -133,10 +134,10 @@
                                                 </Setter>
                                                 <Setter Property="ContextFlyout">
                                                     <MenuFlyout>
-                                                        <MenuItem Header="Cu_t" utils:MenuUtils.MenuIcon="/Icons/cut.gif" />
-                                                        <MenuItem Header="_Copy" utils:MenuUtils.MenuIcon="/Icons/copy.gif" />
-                                                        <MenuItem Header="_Paste" utils:MenuUtils.MenuIcon="/Icons/paste.gif" />
-                                                        <MenuItem Header="_Delete" />
+                                                        <MenuItem IsEnabled="False" Header="Cu_t" utils:MenuUtils.MenuIcon="/Icons/cut.gif" />
+                                                        <MenuItem IsEnabled="False" Header="_Copy" utils:MenuUtils.MenuIcon="/Icons/copy.gif" />
+                                                        <MenuItem IsEnabled="False" Header="_Paste" utils:MenuUtils.MenuIcon="/Icons/paste.gif" />
+                                                        <MenuItem Header="_Delete" Command="{CompiledBinding #Root.((visualDesigner:FormEditViewModel)DataContext).DeleteSelected}" />
                                                         <Separator />
                                                         <MenuItem Header="Bring to Front"
                                                                   utils:MenuUtils.MenuIcon="/Icons/bringtofront.gif"
