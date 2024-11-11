@@ -8,13 +8,13 @@
 <SyntaxDefinition name="VB6" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008"> 
     <Color name="Comment" foreground="#008000" />
     <Color name="String" foreground="#A31515" />
-    <Color name="Keyword" foreground="#0000FF" fontWeight="bold" />
+    <Color name="Keyword" foreground="#0000B0" />
     <Color name="Function" foreground="#74531F" />
-    <Color name="Number" foreground="#FF8000" />
-    <Color name="Type" foreground="#2B91AF" />
-    <Color name="Constant" foreground="#800080" />
-    <Color name="IOKeyword" foreground="#0000FF" />
-    <Color name="StorageModifier" foreground="#0000FF" />
+    <Color name="Number" foreground="#A31515" />
+    <Color name="Type" foreground="#0000B1" />
+    <Color name="Constant" foreground="#A31515" />
+    <Color name="IOKeyword" foreground="#0000B0" />
+    <Color name="StorageModifier" foreground="#0000B0" />
     <Color name="MetadataKeyword" foreground="#FF00FF" />
 
     <!-- Main Rules -->
@@ -207,9 +207,9 @@
         </Keywords>
 
         <!-- Function names -->
-        <Rule color="Function">
-            (?&lt;=Call\s+|Function\s+|Sub\s+)[a-zA-Z][a-zA-Z0-9_]*(?=\s*\(?)
-        </Rule>
+        <!--<Rule color="Function">-->
+        <!--    (?&lt;=Call\s+|Function\s+|Sub\s+)[a-zA-Z][a-zA-Z0-9_]*(?=\s*\(?)-->
+        <!--</Rule>-->
 
         <!-- Custom type names after 'As' -->
         <Rule color="Type">
