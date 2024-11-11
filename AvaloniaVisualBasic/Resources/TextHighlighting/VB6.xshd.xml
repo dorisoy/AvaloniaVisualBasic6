@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+<!-- Converted from TextMate grammar: https://github.com/serkonda7/vscode-vba/blob/main/syntaxes/vba.yaml-tmlanguage -->
+<SyntaxDefinition name="VB6" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008"> 
+    <Color name="Comment" foreground="#008000" />
+    <Color name="String" foreground="#A31515" />
+    <Color name="Keyword" foreground="#0000B0" />
+    <Color name="Function" foreground="#74531F" />
+    <Color name="Number" foreground="#A31515" />
+    <Color name="Type" foreground="#0000B1" />
+    <Color name="Constant" foreground="#A31515" />
+    <Color name="IOKeyword" foreground="#0000B0" />
+    <Color name="StorageModifier" foreground="#0000B0" />
+    <Color name="MetadataKeyword" foreground="#FF00FF" />
+
+    <!-- Main Rules -->
+    <RuleSet>
+        <!-- Comments -->
+        <Span color="Comment" begin="'" />
+        <Span color="Comment" begin="REM " ignoreCase="true" />
+
+        <!-- Strings -->
+        <Span color="String">
+            <Begin>"</Begin>
+            <End>"</End>
+        </Span>
+
+        <!-- Numbers -->
+        <!-- Date format -->
+        <Rule color="Number">
+            \#((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)|[0-9]{1,2})(-|\/)[0-9]{1,2}((-|\/)[0-9]{1,4})?\#
+        </Rule>
+        <!-- Decimal numbers -->
+        <Rule color="Number">
+            \b-?\d+(\.\d+)?\b
+        </Rule>
+        <!-- Octal numbers -->
+        <Rule color="Number">
+            \b-?&amp;O[0-7]+\b
+        </Rule>
+        <!-- Hexadecimal numbers -->
+        <Rule color="Number">
+            \b-?&amp;H[0-9A-F]+\b
+        </Rule>
+
+        <!-- Conditional Keywords -->
+        <Keywords color="Keyword" ignoreCase="true">
+            <Word>Do</Word>
+            <Word>While</Word>
+            <Word>Until</Word>
+            <Word>Case</Word>
+            <Word>Else</Word>
+            <Word>ElseIf</Word>
+            <Word>For</Word>
+            <Word>Each</Word>
+            <Word>If</Word>
+            <Word>In</Word>
+            <Word>New</Word>
+            <Word>Select</Word>
+            <Word>Then</Word>
+            <Word>To</Word>
+            <Word>Step</Word>
+            <Word>With</Word>
+            <!-- End statements -->
+            <Word>End If</Word>
+            <Word>End Select</Word>
+            <Word>End With</Word>
+            <Word>Next</Word>
+            <Word>Wend</Word>
+            <Word>Loop</Word>
+            <Word>Exit For</Word>
+            <Word>Exit Do</Word>
+            <Word>Exit While</Word>
+        </Keywords>
+
+        <!-- Control Keywords -->
+        <Keywords color="Keyword" ignoreCase="true">
+            <Word>Exit Function</Word>
+            <Word>Exit Property</Word>
+            <Word>Exit Sub</Word>
+            <Word>As</Word>
+            <Word>And</Word>
+            <Word>ByRef</Word>
+            <Word>ByVal</Word>
+            <Word>Goto</Word>
+            <Word>Is</Word>
+            <Word>Like</Word>
+            <Word>Mod</Word>
+            <Word>Not</Word>
+            <Word>On Error</Word>
+            <Word>Optional</Word>
+            <Word>Or</Word>
+            <Word>Resume Next</Word>
+            <Word>Stop</Word>
+            <Word>Xor</Word>
+            <Word>Eqv</Word>
+            <Word>Imp</Word>
+            <Word>TypeOf</Word>
+            <Word>AddressOf</Word>
+        </Keywords>
+
+        <!-- IO Keywords -->
+        <Keywords color="IOKeyword" ignoreCase="true">
+            <Word>Open</Word>
+            <Word>Close</Word>
+            <Word>Line Input</Word>
+            <Word>Lock</Word>
+            <Word>Unlock</Word>
+            <Word>Print</Word>
+            <Word>Seek</Word>
+            <Word>Get</Word>
+            <Word>Put</Word>
+            <Word>Write</Word>
+            <Word>Input</Word>
+        </Keywords>
+
+        <!-- Other Keywords -->
+        <Keywords color="Keyword" ignoreCase="true">
+            <Word>Attribute</Word>
+            <Word>Call</Word>
+            <Word>End Function</Word>
+            <Word>End Property</Word>
+            <Word>End Sub</Word>
+            <Word>End Type</Word>
+            <Word>End Enum</Word>
+            <Word>Function</Word>
+            <Word>Property</Word>
+            <Word>Sub</Word>
+            <Word>Type</Word>
+            <Word>Enum</Word>
+            <Word>Declare</Word>
+            <Word>PtrSafe</Word>
+            <Word>WithEvents</Word>
+            <Word>Event</Word>
+            <Word>RaiseEvent</Word>
+            <Word>Implements</Word>
+        </Keywords>
+
+        <!-- Option Keywords -->
+        <Keywords color="Keyword" ignoreCase="true">
+            <Word>Option Base 0</Word>
+            <Word>Option Base 1</Word>
+            <Word>Option Compare Binary</Word>
+            <Word>Option Compare Text</Word>
+            <Word>Option Explicit</Word>
+            <Word>Option Private Module</Word>
+        </Keywords>
+
+        <!-- Visibility Keywords -->
+        <Keywords color="StorageModifier" ignoreCase="true">
+            <Word>Private</Word>
+            <Word>Public</Word>
+            <Word>Global</Word>
+            <Word>Friend</Word>
+        </Keywords>
+
+        <!-- Storage Keywords -->
+        <Keywords color="StorageModifier" ignoreCase="true">
+            <Word>Class</Word>
+            <Word>Const</Word>
+            <Word>Dim</Word>
+            <Word>Get</Word>
+            <Word>Let</Word>
+            <Word>Set</Word>
+            <Word>ReDim</Word>
+            <Word>ReDim Preserve</Word>
+            <Word>Erase</Word>
+            <Word>Static</Word>
+        </Keywords>
+
+        <!-- Built-in Types -->
+        <Keywords color="Type" ignoreCase="true">
+            <Word>Any</Word>
+            <Word>Byte</Word>
+            <Word>Boolean</Word>
+            <Word>Currency</Word>
+            <Word>Collection</Word>
+            <Word>Date</Word>
+            <Word>Double</Word>
+            <Word>Integer</Word>
+            <Word>Long</Word>
+            <Word>LongLong</Word>
+            <Word>LongPtr</Word>
+            <Word>Object</Word>
+            <Word>Single</Word>
+            <Word>String</Word>
+            <Word>Variant</Word>
+        </Keywords>
+
+        <!-- Constants -->
+        <Keywords color="Constant" ignoreCase="true">
+            <Word>Empty</Word>
+            <Word>False</Word>
+            <Word>Nothing</Word>
+            <Word>Null</Word>
+            <Word>True</Word>
+        </Keywords>
+
+        <!-- Metadata Keywords -->
+        <Keywords color="MetadataKeyword" ignoreCase="true">
+            <Word>BEGIN</Word>
+            <Word>END</Word>
+        </Keywords>
+
+        <!-- Function names -->
+        <!--<Rule color="Function">-->
+        <!--    (?&lt;=Call\s+|Function\s+|Sub\s+)[a-zA-Z][a-zA-Z0-9_]*(?=\s*\(?)-->
+        <!--</Rule>-->
+
+        <!-- Custom type names after 'As' -->
+        <Rule color="Type">
+            (?&lt;=\bAs\s+)[a-zA-Z][a-zA-Z0-9_]*
+        </Rule>
+
+        <!-- Line continuation -->
+        <Rule color="Comment">
+            _(?=\s*\n)
+        </Rule>
+    </RuleSet>
+</SyntaxDefinition>
