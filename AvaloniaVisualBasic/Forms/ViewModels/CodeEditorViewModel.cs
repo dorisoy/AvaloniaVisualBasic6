@@ -79,6 +79,7 @@ public partial class CodeEditorViewModel : BaseEditorWindowViewModel
             if (e.Form == formDefinition)
                 RequestClose();
         }));
+        AutoDispose(new ActionDisposable(() => formDefinition.UpdateCode(Document.Text)));
     }
 
     public CodeEditorViewModel Initialize(FormDefinition formElement)
