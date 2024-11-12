@@ -10,7 +10,7 @@ public class FrameComponentClass : ComponentBaseClass
     public FrameComponentClass() : base([CaptionProperty,
     BackColorProperty,
     ForeColorProperty,
-    FontProperty])
+    FontProperty], [ClickEvent])
     {
     }
 
@@ -19,7 +19,7 @@ public class FrameComponentClass : ComponentBaseClass
 
     protected override Control InstantiateInternal(ComponentInstance instance)
     {
-        return new HeaderedContentControl()
+        return new VBFrame()
         {
             Header = instance.GetPropertyOrDefault(CaptionProperty),
             [AttachedProperties.BackColorProperty] = instance.GetPropertyOrDefault(BackColorProperty),

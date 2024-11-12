@@ -13,7 +13,7 @@ public class FormComponentClass : ComponentBaseClass
     ForeColorProperty,
     ShowInTaskbarProperty,
     FontProperty,
-    StartUpPositionProperty])
+    StartUpPositionProperty], [ClickEvent])
     {
     }
 

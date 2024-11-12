@@ -19,7 +19,7 @@ public class OptionButtonComponentClass : ComponentBaseClass
         CheckValueProperty,
         AppearanceProperty,
         TabStopProperty,
-        TabIndexProperty])
+        TabIndexProperty], [ClickEvent])
     {
     }
 

@@ -87,9 +87,12 @@ public partial class FormEditView : UserControl
         if (DataContext is not FormEditViewModel rootVm)
             return;
 
-        var eventName = vm.Instance.BaseClass.Events.FirstOrDefault()?.Name ?? "Click";
+        var eventClass = vm.Instance.BaseClass.Events.FirstOrDefault();
 
-        rootVm.RequestCode($"{vm.Name}_{eventName}");
+        if (eventClass == null)
+            rootVm.RequestCode(null);
+        else
+            rootVm.RequestCode($"{vm.Name}_{eventClass.Name}");
         e.Handled = true;
     }
 

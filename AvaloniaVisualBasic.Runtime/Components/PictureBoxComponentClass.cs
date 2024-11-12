@@ -1,5 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
+using AvaloniaVisualBasic.Runtime.BuiltinControls;
 using Classic.Avalonia.Theme;
 using static AvaloniaVisualBasic.Runtime.Components.VBProperties;
 
@@ -14,7 +17,7 @@ public class PictureBoxComponentClass : ComponentBaseClass
     FillColorProperty, FillStyleProperty,
     FontProperty, ForeColorProperty,
     MousePointerProperty, ToolTipTextProperty, PictureProperty,
-    ])
+    ], [ClickEvent])
     {
     }
 
@@ -23,10 +26,13 @@ public class PictureBoxComponentClass : ComponentBaseClass
 
     protected override Control InstantiateInternal(ComponentInstance instance)
     {
-        return new ClassicBorderDecorator()
+        return new VBPictureBox()
         {
-            BorderStyle = ClassicBorderStyle.Sunken,
-            BorderThickness = new Thickness(2)
+            [AttachedProperties.BackColorProperty] = instance.GetPropertyOrDefault(BackColorProperty),
+            [AttachedProperties.ForeColorProperty] = instance.GetPropertyOrDefault(ForeColorProperty),
+            [AttachedProperties.FontProperty] = instance.GetPropertyOrDefault(FontProperty),
+            Cursor = new Cursor(instance.GetPropertyOrDefault(MousePointerProperty)),
+            FlowDirection = instance.GetPropertyOrDefault(RightToLeftProperty) ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
         };
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Media;
 using AvaloniaVisualBasic.Runtime.BuiltinTypes;
 using AvaloniaVisualBasic.Runtime.Components;
@@ -98,6 +99,8 @@ public class VBLabel : TemplatedControl
         WordWrapProperty.Changed.AddClassHandler<VBLabel>((label, e) => label.UpdateStyle());
         RecognizesAccessKeyProperty.Changed.AddClassHandler<VBLabel>((label, e) => label.UpdateStyle());
         TextProperty.Changed.AddClassHandler<VBLabel>((label, e) => label.UpdateStyle());
+
+        AttachedEvents.AttachClick<VBLabel>();
     }
 
     private void UpdateStyle()
@@ -153,20 +156,5 @@ public class VBLabel : TemplatedControl
 
         if (BackStyle == BackStyles.Opaque)
             context.FillRectangle(BackColor.ToBrush(), new Rect(0, 0, Bounds.Width, Bounds.Height));
-    }
-
-    public IReadOnlyList<PropertyClass> AccessibleProperties { get; } = [VBProperties.CaptionProperty];
-
-    public Vb6Value? GetPropertyValue(PropertyClass property)
-    {
-        if (property == VBProperties.CaptionProperty)
-            return (Text ?? "");
-        return null;
-    }
-
-    public void SetPropertyValue(PropertyClass property, Vb6Value value)
-    {
-        if (property == VBProperties.CaptionProperty)
-            Text = value.Value?.ToString();
     }
 }

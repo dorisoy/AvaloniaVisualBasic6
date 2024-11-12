@@ -19,19 +19,4 @@ public class VBScrollBar : ScrollBar
     {
         this.ExecuteSub(ScrollBarComponentClass.ChangeEvent);
     }
-
-    public IReadOnlyList<PropertyClass> AccessibleProperties { get; } = [VBProperties.ValueProperty];
-
-    public Vb6Value? GetPropertyValue(PropertyClass property)
-    {
-        if (property == VBProperties.ValueProperty)
-            return new Vb6Value((int)Value);
-        return null;
-    }
-
-    public void SetPropertyValue(PropertyClass property, Vb6Value value)
-    {
-        if (property == VBProperties.ValueProperty)
-            Value = value.Value as int? ?? 0;
-    }
 }

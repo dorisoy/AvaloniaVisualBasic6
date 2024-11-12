@@ -723,6 +723,9 @@ public class VB6BuiltIns
         ["vbYes"] = 6,
         ["vbYesNo"] = 4,
         ["vbYesNoCancel"] = 3,
+        ["vbCrLf"] = "\r\n",
+        ["vbCr"] = "\r",
+        ["vbLf"] = "\n",
     };
 
     public VB6BuiltIns(IBasicStandardLibrary stdLib)

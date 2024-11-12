@@ -51,6 +51,12 @@ public abstract class ComponentBaseClass
     }
 
     public static EventClass ClickEvent = new EventClass("Click");
-
-
+    public static EventClass GotFocusEvent = new EventClass("GotFocus");
+    public static EventClass LostFocusEvent = new EventClass("LostFocus");
+    public static EventClass KeyDownEvent = new EventClass("KeyDown", new EventClassArgument("KeyCode", "Integer"), new EventClassArgument("Shift", "Integer"));
+    public static EventClass KeyPressEvent = new EventClass("KeyPress", new EventClassArgument("KeyAscii", "Integer"));
+    public static EventClass KeyUpEvent = new EventClass("KeyUp", new EventClassArgument("KeyCode", "Integer"), new EventClassArgument("Shift", "Integer"));
+    public static EventClass MouseDownEvent = new EventClass("MouseDown", new EventClassArgument("Button", "Integer"), new EventClassArgument("Shift", "Integer"), new EventClassArgument("X", "Single"), new EventClassArgument("Y", "Single"));
+    public static EventClass MouseMoveEvent = new EventClass("MouseMove", new EventClassArgument("Button", "Integer"), new EventClassArgument("Shift", "Integer"), new EventClassArgument("X", "Single"), new EventClassArgument("Y", "Single"));
+    public static EventClass MouseUpEvent = new EventClass("MouseUp", new EventClassArgument("Button", "Integer"), new EventClassArgument("Shift", "Integer"), new EventClassArgument("X", "Single"), new EventClassArgument("Y", "Single"));
 }

@@ -16,7 +16,7 @@ public class CommandButtonComponentClass : ComponentBaseClass
         MousePointerProperty,
         EnabledProperty,
         TabStopProperty,
-        TabIndexProperty])
+        TabIndexProperty], [ClickEvent, GotFocusEvent, LostFocusEvent])
     {
     }
 

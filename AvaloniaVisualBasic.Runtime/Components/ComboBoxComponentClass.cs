@@ -28,7 +28,7 @@ public class ComboBoxComponentClass : ComponentBaseClass
 
     protected override Control InstantiateInternal(ComponentInstance instance)
     {
-        return new ComboBox()
+        return new VBComboBox()
         {
             ItemsSource = instance.GetPropertyOrDefault(ListProperty),
             [AttachedProperties.BackColorProperty] = instance.GetPropertyOrDefault(BackColorProperty),

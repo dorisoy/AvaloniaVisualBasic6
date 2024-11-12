@@ -1,7 +1,5 @@
 using System;
 using Avalonia.Controls;
-using Avalonia.VisualTree;
-using AvaloniaVisualBasic.Runtime.Components;
 
 namespace AvaloniaVisualBasic.Runtime.BuiltinControls;
 
@@ -9,9 +7,9 @@ public class VBCommandButton : Button
 {
     protected override Type StyleKeyOverride => typeof(Button);
 
-    protected override void OnClick()
+    static VBCommandButton()
     {
-        base.OnClick();
-        this.ExecuteSub(ComponentBaseClass.ClickEvent);
+        AttachedEvents.AttachFocusEvents<VBCommandButton>();
+        AttachedEvents.AttachClick<VBCommandButton>();
     }
 }

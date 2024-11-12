@@ -282,9 +282,12 @@ public partial class FormEditViewModel : BaseEditorWindowViewModel
             TopLevelMenu.Add(x);
     }
 
-    public void RequestCode(string subName)
+    public void RequestCode(string? subName)
     {
         editorService.EditCode(formDefinition);
+        if (subName == null)
+            return;
+
         // this is a hack, the following line can be executed only after the window is created, it should be solved in a better way.
         DispatcherTimer.RunOnce(() =>
         {

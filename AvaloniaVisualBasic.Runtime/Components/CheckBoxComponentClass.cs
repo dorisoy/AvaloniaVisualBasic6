@@ -20,7 +20,7 @@ public class CheckBoxComponentClass : ComponentBaseClass
         CheckValueProperty,
         AppearanceProperty,
         TabStopProperty,
-        TabIndexProperty])
+        TabIndexProperty], [ClickEvent])
     {
     }
 

@@ -102,6 +102,12 @@ public static class AvaloniaInteroperability
         Register<VBOptionButton, string, object?>(VBProperties.CaptionProperty, ContentControl.ContentProperty, x => x, x => x as string ?? "");
         Register<VBCommandButton, string, object?>(VBProperties.CaptionProperty, ContentControl.ContentProperty, x => x, x => x as string ?? "");
 
+        Register<VBTextBox, string, string?>(VBProperties.TextProperty, TextBox.TextProperty, x => x, x => x ?? "");
+
+        Register<VBScrollBar, int, double>(VBProperties.ValueProperty, RangeBase.ValueProperty, x => x, x => (int)x);
+
+        Register<VBTimer, int>(VBProperties.IntervalProperty, VBTimer.IntervalProperty);
+
         Register<ComboBox, int>(VBProperties.ListIndexProperty, SelectingItemsControl.SelectedIndexProperty);
         Register<ListBox, int>(VBProperties.ListIndexProperty, SelectingItemsControl.SelectedIndexProperty);
     }

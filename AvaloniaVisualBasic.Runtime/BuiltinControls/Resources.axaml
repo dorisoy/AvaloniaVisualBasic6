@@ -86,4 +86,15 @@
                   BasedOn="{StaticResource {x:Type builtinControls:VBOptionButton}}">
         <Setter Property="BorderBrush" Value="Black" />
     </ControlTheme>
+
+
+    <ControlTheme x:Key="{x:Type builtinControls:VBPictureBox}"
+                  TargetType="builtinControls:VBPictureBox">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ClassicBorderDecorator BorderStyle="Sunken" BorderThickness="2" Background="{TemplateBinding Background}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
 </ResourceDictionary>

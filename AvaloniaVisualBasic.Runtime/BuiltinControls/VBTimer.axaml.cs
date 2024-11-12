@@ -57,24 +57,4 @@ public class VBTimer : TemplatedControl
             }, TimeSpan.FromMilliseconds(Interval));
         }
     }
-
-    public IReadOnlyList<PropertyClass> AccessibleProperties { get; } =
-        [VBProperties.EnabledProperty, VBProperties.IntervalProperty];
-
-    public Vb6Value? GetPropertyValue(PropertyClass property)
-    {
-        if (property == VBProperties.EnabledProperty)
-            return IsEnabled;
-        if (property == VBProperties.IntervalProperty)
-            return Interval;
-        return null;
-    }
-
-    public void SetPropertyValue(PropertyClass property, Vb6Value value)
-    {
-        if (property == VBProperties.EnabledProperty)
-            IsEnabled = value.Value is true;
-        if (property == VBProperties.IntervalProperty)
-            Interval = value.Value as int? ?? 0;
-    }
 }
