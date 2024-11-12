@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using AvaloniaVisualBasic.Controls;
 using AvaloniaVisualBasic.Events;
@@ -332,6 +333,16 @@ public partial class MainViewViewModel : ObservableObject
     public void ClearAllBreakpoints() => DebuggingNotImplementedYet();
     public void SetNextStatement() => DebuggingNotImplementedYet();
     public void ShowNextStatement() => DebuggingNotImplementedYet();
+
+    public async Task OpenGithubRepo()
+    {
+        if (await windowManager.MessageBox(
+                "This will open a new tab with this project github repo, but due to a bug in .NET/Avalonia it will also freeze this tab (just refresh the tab).",
+                buttons: MessageBoxButtons.YesNo) == MessageBoxResult.No)
+            return;
+
+        TopLevel.GetTopLevel(Static.MainView).Launcher.LaunchUriAsync(new Uri("https://github.com/BAndysc/AvaloniaVisualBasic6"));
+    }
 
     public void TileHorizontally() => eventBus.Publish(new RearrangeMDIEvent(MDIRearrangeKind.TileHorizontally));
 

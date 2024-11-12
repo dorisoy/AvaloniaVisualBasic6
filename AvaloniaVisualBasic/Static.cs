@@ -4,6 +4,8 @@ namespace AvaloniaVisualBasic;
 
 public class Static
 {
+    public static bool IsBrowser = OperatingSystem.IsBrowser();
+
     public static bool ForceSingleView => false;
 
     public static bool SupportsWindowing { get; } = OperatingSystem.IsWindows() ||

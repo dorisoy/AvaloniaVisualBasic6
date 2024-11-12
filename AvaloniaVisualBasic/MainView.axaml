@@ -310,6 +310,7 @@
                             <Separator />
                             <MenuItem Header="_About Avalonia Visual Basic..." Command="{x:Static vb:ApplicationCommands.AboutCommand}" />
                         </MenuItem>
+                        <MenuItem Header="Go to github repo" Command="{CompiledBinding OpenGithubRepo}" IsVisible="{x:Static vb:Static.IsBrowser}" />
                     </Menu>
                 </ClassicBorderDecorator>
                 <ClassicBorderDecorator BorderStyle="ThinRaised" BorderThickness="1" DockPanel.Dock="Top"
