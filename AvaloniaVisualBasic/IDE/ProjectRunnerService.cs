@@ -53,6 +53,18 @@ public partial class ProjectRunnerService : IProjectRunnerService
             async Task WindowTask()
             {
                 var tokenSource = new CancellationTokenSource();
+
+                var syntaxChecker = new SyntaxChecker();
+                try
+                {
+                    syntaxChecker.Run(form.Code);
+                }
+                catch (VBCompileErrorException error)
+                {
+                    await windowManager.MessageBox(error.Message, icon: MessageBoxIcon.Warning);
+                    throw new OperationCanceledException();
+                }
+
                 if (Static.SingleView)
                 {
                     var task = RunFormInBrowser(form, tokenSource.Token, out var window);

@@ -10,8 +10,8 @@ public class VBRunTimeException : Exception
     public ParserRuleContext Context { get; }
     private readonly VBStandardError stdError;
 
-    public VBRunTimeException(ParserRuleContext context, VBStandardError stdError) : base(
-        $"Run-time error '{stdError.ErrNo}':\n\n{stdError.Description}")
+    public VBRunTimeException(ParserRuleContext context, VBStandardError stdError, string? extraMessage = null) : base(
+        $"Run-time error '{stdError.ErrNo}':\n\n{stdError.Description}" + (extraMessage == null ? "" : "\n\n" + extraMessage))
     {
         Context = context;
         this.stdError = stdError;
@@ -25,6 +25,8 @@ public class VBRunTimeException : Exception
 
 public class VBCompileErrorException : Exception
 {
+    public int? Line { get; init; }
+
     public VBCompileErrorException(string custom) : base($"Compile error:\n\n{custom}")
     {
 

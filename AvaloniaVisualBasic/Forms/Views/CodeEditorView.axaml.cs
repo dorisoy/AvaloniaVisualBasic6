@@ -2,24 +2,18 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.Labs.Input;
-using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using Avalonia.Platform.Storage;
-using Avalonia.VisualTree;
 using AvaloniaEdit;
-using AvaloniaEdit.Document;
 using AvaloniaEdit.Highlighting;
 using AvaloniaEdit.Highlighting.Xshd;
 using AvaloniaVisualBasic.Controls;
 using AvaloniaVisualBasic.Events;
 using AvaloniaVisualBasic.Forms.ViewModels;
 using AvaloniaVisualBasic.Utils;
-using Dock.Model.Mvvm.Controls;
 using R3;
 
 namespace AvaloniaVisualBasic.Forms.Views;
@@ -166,10 +160,17 @@ public partial class CodeEditorView : UserControl
         activateSub?.Dispose();
     }
 
+    private int prevLine = 0;
+
     private void OnCaretPositionChanged(object? sender, EventArgs e)
     {
         if (DataContext is CodeEditorViewModel vm)
         {
+            if (prevLine != TextEditor.TextArea.Caret.Line)
+            {
+                vm.CheckSyntax(prevLine);
+                prevLine = TextEditor.TextArea.Caret.Line;
+            }
             vm.CaretOffset = TextEditor.CaretOffset;
         }
     }

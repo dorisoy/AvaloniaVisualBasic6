@@ -9,8 +9,10 @@ using AvaloniaEdit.Document;
 using AvaloniaVisualBasic.Events;
 using AvaloniaVisualBasic.IDE;
 using AvaloniaVisualBasic.Projects;
+using AvaloniaVisualBasic.Runtime.Interpreter;
 using AvaloniaVisualBasic.Runtime.ProjectElements;
 using AvaloniaVisualBasic.Utils;
+using Classic.CommonControls.Dialogs;
 using PropertyChanged.SourceGenerator;
 using R3;
 
@@ -37,6 +39,8 @@ public partial class CodeEditorViewModel : BaseEditorWindowViewModel
     public IEventBus EventBus => eventBus;
 
     public FormDefinition? FormDefinition => formDefinition;
+
+    SyntaxChecker syntaxChecker = new SyntaxChecker();
 
     public CodeEditorViewModel(IWindowManager windowManager,
         IEditorService editorService,
@@ -91,6 +95,19 @@ public partial class CodeEditorViewModel : BaseEditorWindowViewModel
         this.formDefinition = formElement;
         Document.Text = formElement.Code;
         return this;
+    }
+
+    public void CheckSyntax(int onlyLine)
+    {
+        try
+        {
+            syntaxChecker.Run(Document.Text);
+        }
+        catch (VBCompileErrorException error)
+        {
+            if (error.Line == onlyLine)
+                windowManager.MessageBox(error.Message, icon: MessageBoxIcon.Warning).ListenErrors();
+        }
     }
 
     public void SaveForm() => projectService.SaveForm(formDefinition, false).ListenErrors();

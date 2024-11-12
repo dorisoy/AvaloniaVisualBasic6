@@ -256,7 +256,7 @@ public partial class StatementExecutor : VB6Visitor<Task<ControlFlow>>
         if (!expressionExecutor.TryUnpack(from, out int fromInt) ||
             !expressionExecutor.TryUnpack(to, out int toInt) ||
             !expressionExecutor.TryUnpack(step, out int stepInt))
-            throw new Exception($"from/to/step is not an integer");
+            throw new VBRunTimeException(context,$"from/to/step is not an integer");
 
         if (!interpreter.ExecutionContext.TryGetVariable(currentEnv, variable, out _))
             interpreter.ExecutionContext.AllocVariable(currentEnv, variable, 0);
@@ -307,7 +307,7 @@ public partial class StatementExecutor : VB6Visitor<Task<ControlFlow>>
     {
         var val = await expressionExecutor.EvaluateValue(context.ifBlockStmt().ifConditionStmt().valueStmt());
         if (val.Type != Vb6Value.ValueType.Boolean)
-            throw new Exception("IF doesn't contain a bool expression");
+            throw new VBRunTimeException(context, "IF doesn't contain a bool expression");
         if (val.Value is true)
             return await Visit(context.ifBlockStmt().block());
         else
@@ -317,7 +317,7 @@ public partial class StatementExecutor : VB6Visitor<Task<ControlFlow>>
             {
                 val = await expressionExecutor.EvaluateValue(elseIf.ifConditionStmt().valueStmt());
                 if (val.Type != Vb6Value.ValueType.Boolean)
-                    throw new Exception("IF doesn't contain a bool expression");
+                    throw new VBRunTimeException(context, "IF doesn't contain a bool expression");
                 if (val.Value is true)
                 {
                     return await Visit(elseIf.block());
@@ -379,9 +379,9 @@ public partial class StatementExecutor : VB6Visitor<Task<ControlFlow>>
 
         if (context.implicitCallStmt_InStmt().iCS_S_VariableOrProcedureCall() is { } varOrProcCall)
         {
-            var identifier = varOrProcCall.GetText() ?? throw new Exception("Null variable name");
+            var identifier = varOrProcCall.GetText() ?? throw new VBRunTimeException(context, VBStandardError.ObjectRequired, "Null variable name");
             if (!interpreter.ExecutionContext.TryUpdateVariable(currentEnv, identifier, value))
-                throw new Exception("Variable " + identifier + " is not declared");
+                throw new VBRunTimeException(context, VBStandardError.ObjectRequired, "Variable " + identifier + " is not declared");
 
             return ControlFlow.Nothing;
         }
@@ -390,18 +390,18 @@ public partial class StatementExecutor : VB6Visitor<Task<ControlFlow>>
             if (membersCall.dictionaryCallStmt() != null ||
                 membersCall.iCS_S_ProcedureOrArrayCall() != null)
                 throw new NotImplementedException("dict or procorarray not supported yet");
-            var identifier = membersCall.iCS_S_VariableOrProcedureCall().GetText() ?? throw new Exception("Null variable name");
+            var identifier = membersCall.iCS_S_VariableOrProcedureCall().GetText() ?? throw new VBRunTimeException(context, VBStandardError.ObjectRequired, "Null variable name");
             if (!interpreter.ExecutionContext.TryGetVariable(currentEnv, identifier, out var variable))
-                throw new Exception("Can't find variable " + identifier);
+                throw new VBRunTimeException(context, VBStandardError.ObjectRequired, "Can't find variable " + identifier);
 
             if (membersCall.iCS_S_MemberCall().Length != 1)
                 throw new NotImplementedException("Only single member call (single dot) is supported as of now");
 
-            var memberIdentifier = membersCall.iCS_S_MemberCall()[0].GetText().TrimStart('.') ?? throw new Exception("Null member name");
+            var memberIdentifier = membersCall.iCS_S_MemberCall()[0].GetText().TrimStart('.') ?? throw new VBRunTimeException(context, VBStandardError.ObjectRequired, "Null member name");
 
             if (variable.Type is not Vb6Value.ValueType.Control ||
                 variable.Value is not Control control)
-                throw new Exception($"Variable {identifier} type {variable.Type} doesn't have member {memberIdentifier}");
+                throw new VBRunTimeException(context, VBStandardError.MethodOrDataMemberNotFound, $"Variable {identifier} type {variable.Type} doesn't have member {memberIdentifier}");
 
             var props = VBProperties.PropertiesByName.GetValueOrDefault(memberIdentifier, []);
 
@@ -411,7 +411,7 @@ public partial class StatementExecutor : VB6Visitor<Task<ControlFlow>>
                     return default;
             }
 
-            throw new Exception($"Variable {identifier} type {variable.Type} doesn't have member {memberIdentifier}");
+            throw new VBRunTimeException(context, VBStandardError.MethodOrDataMemberNotFound, $"Variable {identifier} type {variable.Type} doesn't have member {memberIdentifier}");
         }
         else
         {
@@ -739,7 +739,7 @@ public partial class StatementExecutor : VB6Visitor<Task<ControlFlow>>
     public override async Task<ControlFlow> VisitICS_B_MemberProcedureCall(VB6Parser.ICS_B_MemberProcedureCallContext context)
     {
         var value = await expressionExecutor.EvaluateValue(context.implicitCallStmt_InStmt());
-        var identifier = context.ambiguousIdentifier().GetText() ?? throw new Exception("Empty method identifier");
+        var identifier = context.ambiguousIdentifier().GetText() ?? throw new VBRunTimeException(context, VBStandardError.ObjectRequired, "Empty method identifier");
         var callArgs = await expressionExecutor.EvaluateCallArgs(context.argsCall());
 
         if (value.Type == Vb6Value.ValueType.CSharpProxyObject)

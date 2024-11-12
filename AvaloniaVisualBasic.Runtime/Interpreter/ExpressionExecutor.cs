@@ -194,7 +194,7 @@ public partial class ExpressionExecutor : VB6Visitor<Task<object?>>
 
     public override async Task<object?> VisitImplicitCallStmt_InStmt(VB6Parser.ImplicitCallStmt_InStmtContext context)
     {
-        var identifier = await ExtractIdentifier(context.iCS_S_VariableOrProcedureCall()) ?? throw new Exception("Null variable name");
+        var identifier = await ExtractIdentifier(context.iCS_S_VariableOrProcedureCall()) ?? throw new VBRunTimeException(context, VBStandardError.ObjectRequired, "Null variable name");
         if (!interpreter.ExecutionContext.TryGetVariable(env, identifier, out var variable))
             throw new VBVariableNotDefinedException(identifier);
         return variable;
@@ -240,7 +240,7 @@ public partial class ExpressionExecutor : VB6Visitor<Task<object?>>
                 if (membersCall.iCS_S_MemberCall().Length != 1)
                     throw new NotImplementedException("Only single member call (single dot) is supported as of now");
 
-                var memberIdentifier = membersCall.iCS_S_MemberCall()[0].GetText().TrimStart('.') ?? throw new Exception("Null member name");
+                var memberIdentifier = membersCall.iCS_S_MemberCall()[0].GetText().TrimStart('.') ?? throw new VBRunTimeException(icsContext, VBStandardError.ObjectRequired, "Null member name");
 
                 if (variable.Type is not Vb6Value.ValueType.Control ||
                     variable.Value is not Control control)

@@ -13,7 +13,7 @@ public interface IBasicStandardLibrary
     Task<string?> InputBox(string prompt, string title, string defaultText);
 }
 
-public partial class BasicInterpreter
+public partial class BasicInterpreter : IAntlrErrorListener<IToken>, IAntlrErrorListener<int>
 {
     public ModuleExecutionContext ExecutionContext { get; }
     public VB6BuiltIns BuiltIns { get; }
@@ -36,6 +36,13 @@ public partial class BasicInterpreter
         var lexer = new VB6Lexer(inputStream);
         var commonTokenStream = new CommonTokenStream(lexer);
         var parser = new VB6Parser(commonTokenStream);
+
+        lexer.RemoveErrorListeners();
+        parser.RemoveErrorListeners();
+
+        lexer.AddErrorListener(this);
+        parser.AddErrorListener(this);
+
         var tree = parser.startRule();
 
         prepass = new PrePass(rootEnv, executionContext.State);
@@ -68,5 +75,17 @@ public partial class BasicInterpreter
         }
         else if (!ignoreMissing)
             throw new VBCompileErrorException("Sub or Function not defined (" + name + ')');
+    }
+
+    public void SyntaxError(TextWriter output, IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine,
+        string msg, RecognitionException e)
+    {
+        throw new VBCompileErrorException($"{msg} in line {line}:{charPositionInLine}\nOffending symbol: {offendingSymbol.Text}");
+    }
+
+    public void SyntaxError(TextWriter output, IRecognizer recognizer, int offendingSymbol, int line, int charPositionInLine,
+        string msg, RecognitionException e)
+    {
+        throw new VBCompileErrorException($"{msg} in line {line}:{charPositionInLine}");
     }
 }
