@@ -168,7 +168,7 @@ public class FormDeserializer
                     }
 
                     var font = new VBFont(
-                        new FontFamily((string)fontName),
+                        new FontFamily((string)fontName == "MS Sans Serif"? $"fonts:App#{fontName}" : (string)fontName),
                         (int)fontSize,
                         (FontWeight)fontWeight,
                         (int)italic != 0 ? FontStyle.Italic : FontStyle.Normal);

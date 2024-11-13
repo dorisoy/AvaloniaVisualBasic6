@@ -15,6 +15,11 @@
         <converters:StringFormatConverter x:Key="StringFormatConverter" Format="{}{0} ({1})" />
         <controls:BoolToWeightConverter x:Key="ProjectTitleConverter" WhenTrue="Bold" />
     </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Styles>
     <DockPanel>
         <commonControls:ToolBar DockPanel.Dock="Top" Size="Small" TextPlacement="NoText">
             <commonControls:ToolBarButton ToolTip.Tip="View Code" SmallIcon="/Icons/code.gif" Command="{CompiledBinding ViewCodeCommand}" />

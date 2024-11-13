@@ -1,6 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:avaloniaVisualBasic="clr-namespace:AvaloniaVisualBasic"
+             xmlns:common="clr-namespace:Classic.CommonControls;assembly=Classic.CommonControls.Avalonia"
              x:Class="AvaloniaVisualBasic.App"
              RequestedThemeVariant="{x:Static ClassicTheme.Standard}">
 
@@ -15,6 +16,8 @@
                 <ResourceInclude Source="avares://AvaloniaVisualBasic.Runtime/BuiltinControls/VBLabel.axaml" />
                 <ResourceInclude Source="avares://AvaloniaVisualBasic.Runtime/BuiltinControls/Resources.axaml" />
             </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="{x:Static common:NonClientMetrics.CaptionFontKey}">/Resources#MS Sans Serif</FontFamily>
+            <FontFamily x:Key="ContentControlThemeFontFamily">/Resources#MS Sans Serif</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 
@@ -24,6 +27,10 @@
         <StyleInclude Source="avares://Classic.Avalonia.Theme.ColorPicker/Classic.axaml" />
         <StyleInclude Source="avares://Classic.Avalonia.Theme.DataGrid/Classic.axaml" />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Simple/AvaloniaEdit.xaml" />
+
+        <Style Selector="ToolChromeControl /template/ TextBlock#PART_Title">
+            <Setter Property="Padding" Value="1,1,0,0" />
+        </Style>
     </Application.Styles>
 
     <Application.DataTemplates>

@@ -4,6 +4,7 @@
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <TrimMode>full</TrimMode>
     </PropertyGroup>
 
     <ItemGroup>
@@ -41,28 +42,5 @@
         <None Remove="Icons\**\*.gif"/>
         <AvaloniaResource Include="Icons\**\*.gif"/>
         <AvaloniaResource Include="Resources\**\*"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Controls\MDI\MDIHost.axaml.cs">
-        <DependentUpon>MDIHost.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Controls\MDI\MDIWindow.axaml.cs">
-        <DependentUpon>MDIWindow.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="IDE\MDIControllerView.axaml.cs">
-        <DependentUpon>MDIControllerView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Tools\Projects\ProjectToolView.axaml.cs">
-        <DependentUpon>ProjectToolView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Tools\FormLayout\FormLayoutToolView.axaml.cs">
-        <DependentUpon>FormLayoutToolView.axaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
     </ItemGroup>
 </Project>

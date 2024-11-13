@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using Avalonia;
+using Avalonia.Media.Fonts;
 using AvaloniaVisualBasic.Runtime.ProjectElements;
 using AvaloniaVisualBasic.Runtime.Serialization;
 using Classic.CommonControls;
@@ -121,5 +122,10 @@ public class Program
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .UseMessageBoxSounds()
-            .LogToTrace();
+            .LogToTrace()
+            .ConfigureFonts(manager =>
+            {
+                manager.AddFontCollection(new EmbeddedFontCollection(new Uri("fonts:App", UriKind.Absolute),
+                    new Uri("avares://AvaloniaVisualBasic.Standalone/Resources", UriKind.Absolute)));
+            });
 }

@@ -19,8 +19,8 @@ internal sealed partial class Program
         return AppBuilder.Configure<App>()
             .ConfigureFonts(manager =>
             {
-                manager.AddFontCollection(new EmbeddedFontCollection(new Uri("fonts:Tahoma", UriKind.Absolute),
-                    new Uri("avares://AvaloniaVisualBasic.Browser/Fonts", UriKind.Absolute)));
+                manager.AddFontCollection(new EmbeddedFontCollection(new Uri("fonts:App", UriKind.Absolute),
+                    new Uri("avares://AvaloniaVisualBasic/Resources", UriKind.Absolute)));
             });
     }
 }

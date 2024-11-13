@@ -30,4 +30,8 @@
     <ItemGroup>
       <ProjectReference Include="..\AvaloniaVisualBasic.Runtime\AvaloniaVisualBasic.Runtime.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+        <AvaloniaResource Include="Resources\**\*"/>
+    </ItemGroup>
 </Project>

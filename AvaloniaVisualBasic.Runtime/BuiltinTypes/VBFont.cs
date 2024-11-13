@@ -19,7 +19,7 @@ public readonly record struct VBFont
         Style = style;
     }
 
-    public static VBFont Default { get; } = new VBFont(new FontFamily("Tahoma"), 11);
+    public static VBFont Default { get; } = new VBFont(new FontFamily("fonts:App#MS Sans Serif"), 11);
 
     public override string ToString()
     {

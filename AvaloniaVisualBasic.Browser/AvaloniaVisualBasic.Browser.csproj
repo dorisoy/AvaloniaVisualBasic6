@@ -4,6 +4,21 @@
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RunAOTCompilation>true</RunAOTCompilation>
+    <TrimMode>full</TrimMode>
+    <!-- https://learn.microsoft.com/en-us/dotnet/core/deploying/trimming/trimming-options -->
+    <OptimizationPreference>Size</OptimizationPreference>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <DebuggerSupport>false</DebuggerSupport>
+    <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+    <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+    <EventSourceSupport>false</EventSourceSupport>
+    <HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+    <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+    <MetricsSupport>false</MetricsSupport>
+    <StackTraceSupport>false</StackTraceSupport>
+    <UseNativeHttpHandler>true</UseNativeHttpHandler>
+    <UseSystemResourceKeys>false</UseSystemResourceKeys>
+    <XmlResolverIsNetworkingEnabledByDefault>false</XmlResolverIsNetworkingEnabledByDefault>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,9 +45,4 @@
       <_WasmLinkStepArgs Include="@(_EmccLinkStepArgs)" />
     </ItemGroup>
   </Target>
-
-  <ItemGroup>
-    <None Remove="Fonts\*.ttf" />
-    <AvaloniaResource Include="Fonts\*.ttf" />
-  </ItemGroup>
 </Project>

@@ -105,7 +105,7 @@ public class VbFrmFormatSerializer
             builder.WriteLine($"BeginProperty {property}");
             indentLevel++;
             var font = (VBFont)value;
-            WriteSimpleType("Name", typeof(string), $"\"{font.FontFamily.Name}\"");
+            WriteSimpleType("Name", typeof(string), font.FontFamily.Name);
             WriteSimpleType("Size", typeof(float), font.Size);
             WriteSimpleType("Charset", typeof(int), 2);
             WriteSimpleType("Weight", typeof(int), (int)font.Weight);
