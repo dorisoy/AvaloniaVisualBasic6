@@ -27,23 +27,16 @@ dotnet build AvaloniaVisualBasic/AvaloniaVisualBasic.Desktop.csproj
 
 If you encounter [Antlr4 errors](https://github.com/BAndysc/AvaloniaVisualBasic6/issues/2), this likely means the `Antlr4BuildTasks` library couldn't automatically download Java. Installing Java manually should resolve the issue.
 
-### Publishing the Desktop Version
+### Publishing the Desktop Version and Making `Make Publish` Work
 
-To publish the desktop version, use:
-
-```
-dotnet publish AvaloniaVisualBasic.Desktop/AvaloniaVisualBasic.Desktop.csproj -o release/ -p:PublishAot=true -f net9.0
-```
-
-## Making `Make Publish` Work
-
-First, publish the standalone runtime:
+Publish both IDE project (AvaloniaVisualBasic.Desktop) and runtime (AvaloniaVisualBasic.Standalone):
 
 ```
-dotnet publish AvaloniaVisualBasic.Standalone -o standalone/ -f net8.0
+dotnet publish AvaloniaVisualBasic.Desktop -f net9.0 -o bin/
+dotnet publish AvaloniaVisualBasic.Standalone -f net9.0 -o bin/standalone/
 ```
 
-Then, copy the entire folder to the IDE folder.
+Now you can run `./bin/AvaloniaVisualBasic.Desktop`.
 
 ## Thanks to
 
